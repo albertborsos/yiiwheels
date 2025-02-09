@@ -18,7 +18,7 @@
  *
  * @version $Id: $
  */
-return array (
+return  [
   'Enter' => 'Edition',
   'Select' => 'Sélection',
   'You should provide modelClass in constructor of EditableSaver.'=>'La classe du modèle doit être donné en tant que paramètre au constructeur d\'EditableSaver',
@@ -29,4 +29,4 @@ return array (
   'Model {class} rules do not allow to update attribute "{attr}"'=>'Le modèle {class} n\'autorise pas la mise à jour de l\'attribut "{attr}"',
   'Error while saving record!'=>'Erreur lors de la sauvegarde!',
 
-);
+];

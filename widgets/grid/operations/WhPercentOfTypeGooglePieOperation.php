@@ -29,32 +29,33 @@ class WhPercentOfTypeGooglePieOperation extends WhPercentOfTypeOperation
      * @var array $chartOptions
      * @see https://google-developers.appspot.com/chart/interactive/docs/gallery/piechart
      */
-    public $chartOptions = array(
+    public $chartOptions = [
         'title' => 'Google Pie Chart'
-    );
+    ];
 
     /**
      * @var array $data the configuration data of the chart
      */
-    protected $data = array();
+    protected $data = [];
 
     /**
      * @see TbOperation
      * @return mixed|void
      */
+    #[\Override]
     public function displaySummary()
     {
-        $this->data[] = array('Label', 'Percent');
+        $this->data[] = ['Label', 'Percent'];
 
         foreach ($this->types as $type) {
             if (!isset($type['value'])) {
                 $type['value'] = 0;
             }
 
-            $this->data[] = $this->getTotal() ? array(
+            $this->data[] = $this->getTotal() ? [
                 $type['label'],
                 (float)number_format(($type['value'] / $this->getTotal()) * 100, 1)
-            ) : 0;
+            ] : 0;
         }
         $data = CJavaScript::jsonEncode($this->data);
         $options = CJavaScript::jsonEncode($this->chartOptions);
@@ -71,19 +72,19 @@ class WhPercentOfTypeGooglePieOperation extends WhPercentOfTypeOperation
     {
         // Run chart
         $chart = Yii::createComponent(
-            array(
+            [
                 'class' => 'yiiwheels.widgets.google.WhVisualizationChart',
                 'visualization' => 'PieChart',
                 'containerId' => $this->getId(),
                 'data' => $this->data,
                 'options' => $this->chartOptions
-            )
+            ]
         );
         $chart->init();
         $chart->run();
 
         // create custom chart update by using the global chart variable
-        $this->column->grid->componentsAfterAjaxUpdate[__CLASS__] =
+        $this->column->grid->componentsAfterAjaxUpdate[self::class] =
             'var $el = $("#' . $this->getId() . '");var data = $el.data("data");var opts = $el.data("options");
 			data = google.visualization.arrayToDataTable(data);
 			' . $chart->getId() . '=new google.visualization.PieChart(document.getElementById("' . $this->getId() . '"));

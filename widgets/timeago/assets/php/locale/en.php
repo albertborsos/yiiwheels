@@ -1,6 +1,6 @@
 <?php
 // English shortened
-return array (
+return  [
     'prefixAgo' => NULL,
     'prefixFromNow' => NULL,
     'suffixAgo' => 'ago',
@@ -17,6 +17,6 @@ return array (
     'year' => 'about a year',
     'years' => '%d years',
     'wordSeparator' => ' ',
-    'rules' => array(),
-    'numbers' => array (),
-);
+    'rules' => [],
+    'numbers' =>  [],
+];

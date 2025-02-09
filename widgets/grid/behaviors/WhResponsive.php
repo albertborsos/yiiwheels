@@ -83,6 +83,6 @@ class WhResponsive extends CBehavior
         {$labels}
     }
 EOD;
-        Yii::app()->clientScript->registerCss(__CLASS__ . '#' . $gridId, $css);
+        Yii::app()->clientScript->registerCss(self::class . '#' . $gridId, $css);
     }
 }

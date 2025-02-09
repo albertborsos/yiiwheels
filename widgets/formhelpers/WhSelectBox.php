@@ -22,7 +22,7 @@ class WhSelectBox extends CInputWidget
     /**
      * @var array the data list to display
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * @var string size. Valid values are:
@@ -44,7 +44,7 @@ class WhSelectBox extends CInputWidget
     /**
      * @var array the htmlOptions of the wrapper layer
      */
-    public $wrapperOptions = array();
+    public $wrapperOptions = [];
 
     /**
      * Widget's initialization method
@@ -52,7 +52,7 @@ class WhSelectBox extends CInputWidget
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**
@@ -69,7 +69,7 @@ class WhSelectBox extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -88,30 +88,30 @@ class WhSelectBox extends CInputWidget
 
         echo CHtml::openTag(
             'a',
-            array(
+            [
                 'class' => 'bfh-selectbox-toggle',
                 'role' => 'button',
                 'data-toggle' => 'bfh-selectbox',
                 'href' => '#'
-            )
+            ]
         );
         echo CHtml::tag(
             'span',
-            array('class' => 'bfh-selectbox-option ' . $this->size, 'data-option' => $value),
+            ['class' => 'bfh-selectbox-option ' . $this->size, 'data-option' => $value],
             $valueText
         );
-        echo CHtml::tag('b', array('class' => 'caret'), '&nbsp;');
+        echo CHtml::tag('b', ['class' => 'caret'], '&nbsp;');
         echo CHtml::closeTag('a');
 
-        echo CHtml::openTag('div', array('class' => 'bfh-selectbox-options'));
+        echo CHtml::openTag('div', ['class' => 'bfh-selectbox-options']);
         if ($this->displayFilter) {
             echo '<input type="text" class="bfh-selectbox-filter">';
         }
-        $items = array();
+        $items = [];
         foreach ($this->data as $key => $item) {
-            $items[] = CHtml::tag('a', array('tabindex' => '-1', 'href' => '#', 'data-option' => $key), $item);
+            $items[] = CHtml::tag('a', ['tabindex' => '-1', 'href' => '#', 'data-option' => $key], $item);
         }
-        echo CHtml::tag('ul', array('role' => 'options'), '<li>' . implode('</li><li>', $items) . '</li>');
+        echo CHtml::tag('ul', ['role' => 'options'], '<li>' . implode('</li><li>', $items) . '</li>');
         echo CHtml::closeTag('div');
 
         echo CHtml::closeTag('div');
@@ -123,7 +123,7 @@ class WhSelectBox extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

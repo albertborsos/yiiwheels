@@ -28,7 +28,7 @@ class WhEditableColumn extends CDataColumn
      * @var array editable config options.
      * @see EditableField config
      */
-    public $editable = array();
+    public $editable = [];
 
     public function init()
     {
@@ -54,26 +54,26 @@ class WhEditableColumn extends CDataColumn
 
         if ($isModel) {
             $widgetClass = 'WhEditableField';
-            $options = array(
+            $options = [
                 'model' => $data,
                 'attribute' => empty($this->editable['attribute']) ? $this->name : $this->editable['attribute'],
-            );
+            ];
 
             //if value defined in column config --> we should evaluate it
             //and pass to widget via `text` option: set flag `passText` = true
             $passText = !empty($this->value);
         } else {
             $widgetClass = 'WhEditable';
-            $options = array(
+            $options = [
                 'pk' => $data[$this->grid->dataProvider->keyField],
                 'name' => empty($this->editable['name']) ? $this->name : $this->editable['name'],
-            );
+            ];
 
             $passText = true;
             //if autotext will be applied, do not pass `text` option (pass `value` instead)
             if (empty($this->value) && WhEditable::isAutotext(
                     $this->editable,
-                    isset($this->editable['type']) ? $this->editable['type'] : ''
+                    $this->editable['type'] ?? ''
                 )
             ) {
                 $options['value'] = $data[$this->name];
@@ -97,15 +97,15 @@ class WhEditableColumn extends CDataColumn
 
         //apply may be a string expression, see https://github.com/vitalets/x-editable-yii/issues/33
         if (isset($options['apply']) && is_string($options['apply'])) {
-            $options['apply'] = $this->evaluateExpression($options['apply'], array('data' => $data, 'row' => $row));
+            $options['apply'] = $this->evaluateExpression($options['apply'], ['data' => $data, 'row' => $row]);
         }
 
         //evaluate htmlOptions inside editable config as they can depend on $data
         //see https://github.com/vitalets/x-editable-yii/issues/40
         if (isset($options['htmlOptions']) && is_array($options['htmlOptions'])) {
             foreach ($options['htmlOptions'] as $k => $v) {
-                if (is_string($v) && (strpos($v, '$data') !== false || strpos($v, '$row') !== false)) {
-                    $options['htmlOptions'][$k] = $this->evaluateExpression($v, array('data' => $data, 'row' => $row));
+                if (is_string($v) && (str_contains($v, '$data') || str_contains($v, '$row'))) {
+                    $options['htmlOptions'][$k] = $this->evaluateExpression($v, ['data' => $data, 'row' => $row]);
                 }
             }
         }
@@ -121,12 +121,12 @@ class WhEditableColumn extends CDataColumn
 
         if ($this->grid->enableSorting && $this->sortable && $this->name !== null) {
             $sort = $this->grid->dataProvider->getSort();
-            $label = isset($this->header) ? $this->header : $sort->resolveLabel($this->name);
+            $label = $this->header ?? $sort->resolveLabel($this->name);
 
             if ($sort->resolveAttribute($this->name) !== false)
                 $label .= '<span class="caret"></span>';
 
-            echo $sort->link($this->name, $label, array('class' => 'sort-link'));
+            echo $sort->link($this->name, $label, ['class' => 'sort-link']);
         } else {
             if ($this->name !== null && $this->header === null) {
                 if ($this->grid->dataProvider instanceof CActiveDataProvider)

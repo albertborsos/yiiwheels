@@ -1,6 +1,6 @@
 <?php
 // German
-return array (
+return  [
     'prefixAgo' => "vor",
     'prefixFromNow' => "in",
     'suffixAgo' => NULL,
@@ -17,6 +17,6 @@ return array (
     'year' => "etwa einem Jahr",
     'years' => "%d Jahren",
     'wordSeparator' => ' ',
-    'rules' => array(),
-    'numbers' => array (),
-);
+    'rules' => [],
+    'numbers' =>  [],
+];

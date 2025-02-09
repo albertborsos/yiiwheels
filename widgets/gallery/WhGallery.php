@@ -24,13 +24,13 @@ class WhGallery extends CWidget
      * @var array
      * box HTML additional attributes
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * @var array $options the blueimp gallery js configuration options
      * @see https://github.com/blueimp/Gallery/blob/master/README.md#options
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * The array of items that compound the gallery. The syntax is as follows:
@@ -46,7 +46,7 @@ class WhGallery extends CWidget
      * </pre>
      * @var array
      */
-    public $items = array();
+    public $items = [];
 
     /**
      * @var bool whether to display the controls on initialization
@@ -60,7 +60,7 @@ class WhGallery extends CWidget
     {
         $this->htmlOptions['id'] = TbArray::getValue('id', $this->htmlOptions, $this->getId());
         $this->pluginOptions['container'] = '#' . $this->htmlOptions['id'] . '-gallery';
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
         parent::init();
     }
 
@@ -98,10 +98,10 @@ class WhGallery extends CWidget
      */
     public function renderTemplate()
     {
-        $options = array(
+        $options = [
             'id' => $this->htmlOptions['id'] . '-gallery',
             'class' => 'blueimp-gallery'
-        );
+        ];
         if ($this->displayControls) {
             TbHtml::addCssClass('blueimp-gallery-controls', $options);
         }
@@ -122,7 +122,7 @@ class WhGallery extends CWidget
     public function registerGalleryScriptFiles()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -153,7 +153,7 @@ $(document).on('click', '#{$selector} a', function(e){
 });
 		";
 
-        Yii::app()->clientScript->registerScript(__CLASS__ . '#' . $this->getId(), $js);
+        Yii::app()->clientScript->registerScript(self::class . '#' . $this->getId(), $js);
     }
 
 }

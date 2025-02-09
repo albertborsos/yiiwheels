@@ -28,7 +28,7 @@ class WhMaskMoney extends CInputWidget
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**
@@ -45,7 +45,7 @@ class WhMaskMoney extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -63,7 +63,7 @@ class WhMaskMoney extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

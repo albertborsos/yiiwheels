@@ -106,9 +106,9 @@ class WhTimeAgoFormatter extends CFormatter
         $days = $hours / 24;
         $years = $days / 365;
 
-        $separator = $this->data['wordSeparator'] === null ? " " : $this->data['wordSeparator'];
+        $separator = $this->data['wordSeparator'] ?? " ";
 
-        $wordsConds = array(
+        $wordsConds = [
             $seconds < 45,
             $seconds < 90,
             $minutes < 45,
@@ -120,21 +120,21 @@ class WhTimeAgoFormatter extends CFormatter
             $days < 365,
             $years < 1.5,
             true
-        );
+        ];
 
-        $wordResults = array(
-            array('seconds', round($seconds)),
-            array('minute', 1),
-            array('minutes', round($minutes)),
-            array('hour', 1),
-            array('hours', round($hours)),
-            array('day', 1),
-            array('days', round($days)),
-            array('month', 1),
-            array('months', round($days / 30)),
-            array('year', 1),
-            array('years', round($years))
-        );
+        $wordResults = [
+            ['seconds', round($seconds)],
+            ['minute', 1],
+            ['minutes', round($minutes)],
+            ['hour', 1],
+            ['hours', round($hours)],
+            ['day', 1],
+            ['days', round($days)],
+            ['month', 1],
+            ['months', round($days / 30)],
+            ['year', 1],
+            ['years', round($years)]
+        ];
 
         for ($i = 0; $i < $count = count($wordsConds); ++$i) {
             if ($wordsConds[$i]) {
@@ -146,7 +146,7 @@ class WhTimeAgoFormatter extends CFormatter
                 } else {
                     $message = $this->data[$key];
                 }
-                return trim(implode($separator, array($prefix, preg_replace('/%d/i', $number, $message), $suffix)));
+                return trim(implode($separator, [$prefix, preg_replace('/%d/i', $number, (string) $message), $suffix]));
             }
         }
     }

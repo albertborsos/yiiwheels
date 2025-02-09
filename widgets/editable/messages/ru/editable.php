@@ -5,9 +5,9 @@
  * @author Vitaliy Potapov <noginsk@rambler.ru>
 */
 
-return array (
+return  [
   'Enter'     => 'Введите',
   'Select'    => 'Выберите',
   'Pick'      => 'Укажите',
   'x clear'   => 'очистить',
-);
+];

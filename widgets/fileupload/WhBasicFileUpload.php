@@ -20,7 +20,7 @@ class WhBasicFileUpload extends CInputWidget
      * Editor options that will be passed to the editor
      * @see http://imperavi.com/redactor/docs/
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var string upload action url
@@ -37,7 +37,7 @@ class WhBasicFileUpload extends CInputWidget
             throw new CException(Yii::t('zii', '"uploadAction" attribute cannot be blank'));
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**
@@ -54,7 +54,7 @@ class WhBasicFileUpload extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -74,7 +74,7 @@ class WhBasicFileUpload extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

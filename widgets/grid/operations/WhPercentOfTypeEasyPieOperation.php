@@ -40,7 +40,7 @@ class WhPercentOfTypeEasyPieOperation extends WhPercentOfTypeOperation
      * @var array the easy-pie-chart plugin configuration options
      * @see https://github.com/rendro/easy-pie-chart#configuration-parameter
      */
-    public $chartOptions = array(
+    public $chartOptions = [
         'barColor' => '#ef1e25',
         // The color of the curcular bar. You can pass either a css valid color string like rgb,
         // rgba hex or string colors. But you can also pass a function that accepts the current
@@ -61,14 +61,15 @@ class WhPercentOfTypeEasyPieOperation extends WhPercentOfTypeOperation
         // Callback function that is called at the start of any animation (only if animate is not false).
         'onStop' => 'js:$.noop'
         // Callback function that is called at the end of any animation (only if animate is not false).
-    );
+    ];
 
     /**
      * Widget's initialization widget
      */
+    #[\Override]
     public function init()
     {
-        $this->typeTemplate = strtr($this->typeTemplate, array('{class}' => $this->chartCssClass));
+        $this->typeTemplate = strtr($this->typeTemplate, ['{class}' => $this->chartCssClass]);
         parent::init();
     }
 
@@ -77,6 +78,7 @@ class WhPercentOfTypeEasyPieOperation extends WhPercentOfTypeOperation
      * @see WhOperation
      * @return mixed|void
      */
+    #[\Override]
     public function displaySummary()
     {
         parent::displaySummary();
@@ -101,13 +103,13 @@ class WhPercentOfTypeEasyPieOperation extends WhPercentOfTypeOperation
 
         $options = CJavaScript::encode($this->chartOptions);
         Yii::app()->getClientScript()->registerScript(
-            __CLASS__ . '#percent-of-type-operation-simple-pie',
+            self::class . '#percent-of-type-operation-simple-pie',
             '$("#' . $this->column->grid->id . ' .' . $this->column->grid->extendedSummaryCssClass . ' .' . $this->chartCssClass . '")
 			.easyPieChart(' . $options . ');'
         );
 
-        $this->column->grid->componentsReadyScripts[__CLASS__] =
-        $this->column->grid->componentsAfterAjaxUpdate[__CLASS__] =
+        $this->column->grid->componentsReadyScripts[self::class] =
+        $this->column->grid->componentsAfterAjaxUpdate[self::class] =
             '$("#' . $this->column->grid->id . ' .' . $this->column->grid->extendedSummaryCssClass . ' .' . $this->chartCssClass . '")
 				.easyPieChart(' . $options . ');';
     }

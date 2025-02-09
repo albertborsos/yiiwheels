@@ -26,17 +26,17 @@ class WhSparkLines extends CWidget
      * @var array the data to show on the chart
      * @see http://omnipotent.net/jquery.sparkline/#s-about
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * @var array additional HTML attributes to the tag
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * @var array plugin options
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * Debug mode
@@ -53,7 +53,7 @@ class WhSparkLines extends CWidget
             throw new CException(Yii::t('zii', '"data" attribute cannot be blank'));
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         $this->htmlOptions['id'] = TbArray::getValue('id', $this->htmlOptions, $this->getId());
     }
@@ -74,7 +74,7 @@ class WhSparkLines extends CWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -92,6 +92,6 @@ class WhSparkLines extends CWidget
         $data = CJavaScript::encode($this->data);
         $options = CJavaScript::encode($this->pluginOptions);
 
-        $cs->registerScript(__CLASS__ . '#' . $selector, "jQuery('{$selector}').sparkline({$data}, {$options});");
+        $cs->registerScript(self::class . '#' . $selector, "jQuery('{$selector}').sparkline({$data}, {$options});");
     }
 }

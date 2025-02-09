@@ -29,12 +29,12 @@ class WhHtml5Editor extends CInputWidget
     /**
      * Html options that will be assigned to the text area
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * Editor options that will be passed to the editor
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * Editor width
@@ -49,7 +49,7 @@ class WhHtml5Editor extends CInputWidget
     public function init()
     {
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         if (!$style = TbArray::popValue('style', $this->htmlOptions, '')) {
             $this->htmlOptions['style'] = $style;
@@ -66,7 +66,7 @@ class WhHtml5Editor extends CInputWidget
     public function run()
     {
 
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         $this->htmlOptions['id'] = $id;
 
@@ -87,7 +87,7 @@ class WhHtml5Editor extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -101,11 +101,11 @@ class WhHtml5Editor extends CInputWidget
         $cs->registerScriptFile($assetsUrl . '/js/wysihtml5-0.3.0.js');
         $cs->registerScriptFile($assetsUrl . '/js/bootstrap-wysihtml5.js');
 
-        if (in_array(@$this->pluginOptions['locale'], array('de-DE', 'es-ES', 'fr', 'fr-NL', 'pt-BR', 'sv-SE'))) {
+        if (in_array(@$this->pluginOptions['locale'], ['de-DE', 'es-ES', 'fr', 'fr-NL', 'pt-BR', 'sv-SE'])) {
             $cs->registerScriptFile(
                 $assetsUrl . '/js/locale/bootstrap-wysihtml5.' . $this->pluginOptions['locale'] . '.js'
             );
-        } elseif (in_array($this->lang, array('de-DE', 'es-ES', 'fr', 'fr-NL', 'pt-BR', 'sv-SE'))) {
+        } elseif (in_array($this->lang, ['de-DE', 'es-ES', 'fr', 'fr-NL', 'pt-BR', 'sv-SE'])) {
             $cs->registerScriptFile($assetsUrl . '/js/locale/bootstrap-wysihtml5.' . $this->lang . '.js');
             $this->pluginOptions['locale'] = $this->lang;
         }
@@ -125,12 +125,12 @@ class WhHtml5Editor extends CInputWidget
     private function normalizeStylesheetsProperty()
     {
         if (empty($this->pluginOptions['stylesheets']))
-            $this->pluginOptions['stylesheets'] = array();
+            $this->pluginOptions['stylesheets'] = [];
         else if (is_array($this->pluginOptions['stylesheets']))
             $this->pluginOptions['stylesheets'] = array_filter($this->pluginOptions['stylesheets'], 'is_string');
         else if (is_string($this->pluginOptions['stylesheets']))
-            $this->pluginOptions['stylesheets'] = array($this->pluginOptions['stylesheets']);
+            $this->pluginOptions['stylesheets'] = [$this->pluginOptions['stylesheets']];
         else
-            $this->pluginOptions['stylesheets'] = array();
+            $this->pluginOptions['stylesheets'] = [];
     }
 }

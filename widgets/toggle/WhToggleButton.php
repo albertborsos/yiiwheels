@@ -74,7 +74,7 @@ class WhToggleButton extends CInputWidget
     public $enabledStyle = 'primary';
 
     /**
-     * @var string the style of the toggle button disabled style
+     * @var string|null the style of the toggle button disabled style
      * Accepted values ["primary", "danger", "info", "success", "warning"] or nothing
      */
     public $disabledStyle = null;
@@ -91,7 +91,7 @@ class WhToggleButton extends CInputWidget
      *  ...
      * </pre>
      */
-    public $customEnabledStyle = array();
+    public $customEnabledStyle = [];
 
     /**
      * @var array a custom style for the disabled option. Format
@@ -105,7 +105,7 @@ class WhToggleButton extends CInputWidget
      *  ...
      * </pre>
      */
-    public $customDisabledStyle = array();
+    public $customDisabledStyle = [];
 
     /**
      * @var string the tag name. Defaults to 'div'.
@@ -117,7 +117,7 @@ class WhToggleButton extends CInputWidget
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
         $this->htmlOptions['id'] = TbArray::getValue('id', $this->htmlOptions, $this->getId());
     }
 
@@ -135,9 +135,9 @@ class WhToggleButton extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
-        echo CHtml::openTag($this->tagName, array('id' => 'wrapper-' . $id));
+        echo CHtml::openTag($this->tagName, ['id' => 'wrapper-' . $id]);
 
         if ($this->hasModel()) {
             echo CHtml::activeCheckBox($this->model, $this->attribute, $this->htmlOptions);
@@ -154,7 +154,7 @@ class WhToggleButton extends CInputWidget
     protected function registerClientScript()
     {
 
-        $path      = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path      = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -183,7 +183,7 @@ class WhToggleButton extends CInputWidget
     protected function getConfiguration()
     {
         if ($this->onChange !== null) {
-            if ((!$this->onChange instanceof CJavaScriptExpression) && strpos($this->onChange, 'js:') !== 0) {
+            if ((!$this->onChange instanceof CJavaScriptExpression) && !str_starts_with($this->onChange, 'js:')) {
                 $onChange = new CJavaScriptExpression($this->onChange);
             } else {
                 $onChange = $this->onChange;
@@ -192,18 +192,18 @@ class WhToggleButton extends CInputWidget
             $onChange = 'js:$.noop';
         }
 
-        $config = array(
+        $config = [
             'onChange'        => $onChange,
             'width'           => $this->width,
             'height'          => $this->height,
             'animated'        => $this->animated,
             'transitionSpeed' => $this->transitionSpeed,
-            'label'           => array(
+            'label'           => [
                 'enabled'  => $this->enabledLabel,
                 'disabled' => $this->disabledLabel
-            ),
-            'style'           => array()
-        );
+            ],
+            'style'           => []
+        ];
         if (!empty($this->enabledStyle)) {
             $config['style']['enabled'] = $this->enabledStyle;
         }
@@ -211,13 +211,13 @@ class WhToggleButton extends CInputWidget
             $config['style']['disabled'] = $this->disabledStyle;
         }
         if (!empty($this->customEnabledStyle)) {
-            $config['style']['custom'] = array('enabled' => $this->customEnabledStyle);
+            $config['style']['custom'] = ['enabled' => $this->customEnabledStyle];
         }
         if (!empty($this->customDisabledStyle)) {
             if (isset($config['style']['custom'])) {
                 $config['style']['custom']['disabled'] = $this->customDisabledStyle;
             } else {
-                $config['style']['custom'] = array('disabled' => $this->customDisabledStyle);
+                $config['style']['custom'] = ['disabled' => $this->customDisabledStyle];
             }
         }
         foreach ($config as $key => $element) {

@@ -36,9 +36,10 @@ class WhPercentOfTypeOperation extends WhCountOfTypeOperation
      * @return mixed|void
      * @see TbOperation
      */
+    #[\Override]
     public function displaySummary()
     {
-        $typesResults = array();
+        $typesResults = [];
 
         foreach ($this->types as $type) {
             if (!isset($type['value'])) {
@@ -49,11 +50,11 @@ class WhPercentOfTypeOperation extends WhCountOfTypeOperation
                 : 0;
             $typesResults[] = strtr(
                 $this->typeTemplate,
-                array('{label}' => $type['label'], '{value}' => $type['value'])
+                ['{label}' => $type['label'], '{value}' => $type['value']]
             );
         }
 
-        echo strtr($this->template, array('{label}' => $this->label, '{types}' => implode(' ', $typesResults)));
+        echo strtr($this->template, ['{label}' => $this->label, '{types}' => implode(' ', $typesResults)]);
     }
 
     /**

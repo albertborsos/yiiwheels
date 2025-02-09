@@ -34,12 +34,12 @@ class WhFineUploader extends CInputWidget
     /**
      * @var array the plugin options
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var array the events
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * @var string which scenario we get the validation from
@@ -49,7 +49,7 @@ class WhFineUploader extends CInputWidget
     /**
      * @var array d
      */
-    protected $defaultOptions = array();
+    protected $defaultOptions = [];
 
     /**
      * @throws CException
@@ -63,7 +63,7 @@ class WhFineUploader extends CInputWidget
             $this->noScriptText = Yii::t('zii', "Please enable JavaScript to use file uploader.");
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         $this->initDefaultOptions();
     }
@@ -91,7 +91,7 @@ class WhFineUploader extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -119,19 +119,19 @@ class WhFineUploader extends CInputWidget
      */
     protected function initDefaultOptions()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
 
 
-        $this->defaultOptions = array(
-            'request' => array(
+        $this->defaultOptions = [
+            'request' => [
                 'endpoint' => $this->uploadAction,
                 'inputName' => $name,
-            ),
+            ],
             'validation' => $this->getValidator(),
-            'messages' => array(
+            'messages' => [
                 'typeError' => Yii::t('zii', '{file} has an invalid extension. Valid extension(s): {extensions}.'),
                 'sizeError' => Yii::t('zii', '{file} is too large, maximum file size is {sizeLimit}.'),
                 'minSizeError' => Yii::t('zii', '{file} is too small, minimum file size is {minSizeLimit}.'),
@@ -141,8 +141,8 @@ class WhFineUploader extends CInputWidget
                         'zii',
                         'The files are being uploaded, if you leave now the upload will be cancelled.'
                     )
-            ),
-        );
+            ],
+        ];
     }
 
     /**
@@ -150,7 +150,7 @@ class WhFineUploader extends CInputWidget
      */
     protected function getValidator()
     {
-        $ret = array();
+        $ret = [];
         if ($this->hasModel()) {
             if ($this->scenario !== null) {
                 $originalScenario = $this->model->getScenario();
@@ -165,11 +165,11 @@ class WhFineUploader extends CInputWidget
             // we are just looking for the first founded CFileValidator
             foreach ($validators as $validator) {
                 if (is_a($validator, 'CFileValidator')) {
-                    $ret = array(
+                    $ret = [
                         'allowedExtensions' => explode(',', str_replace(' ', '', $validator->types)),
                         'sizeLimit' => $validator->maxSize,
                         'minSizeLimit' => $validator->minSize,
-                    );
+                    ];
                     break;
                 }
             }

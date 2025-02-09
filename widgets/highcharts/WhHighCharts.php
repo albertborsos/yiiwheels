@@ -43,19 +43,19 @@ class WhHighCharts extends CWidget
      * @var array $options the highcharts js configuration options
      * @see http://api.highcharts.com/highcharts
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var array $htmlOptions the HTML tag attributes
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * Widget's initialization method
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
         $this->htmlOptions['id'] = TbArray::getValue('id', $this->htmlOptions, $this->getId());
     }
 
@@ -72,7 +72,7 @@ class WhHighCharts extends CWidget
             if (isset($this->pluginOptions['chart']) && is_array($this->pluginOptions['chart'])) {
                 $this->pluginOptions['chart']['renderTo'] = $this->htmlOptions['id'];
             } else {
-                $this->pluginOptions['chart'] = array('renderTo' => $this->htmlOptions['id']);
+                $this->pluginOptions['chart'] = ['renderTo' => $this->htmlOptions['id']];
             }
 
         }
@@ -85,7 +85,7 @@ class WhHighCharts extends CWidget
     protected function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -94,7 +94,7 @@ class WhHighCharts extends CWidget
         $cs->registerScriptFile($assetsUrl . '/js/highcharts.js');
 
         /* register required files */
-        $defaultOptions = array('exporting' => array('enabled' => true));
+        $defaultOptions = ['exporting' => ['enabled' => true]];
 
         $this->pluginOptions = CMap::mergeArray($defaultOptions, $this->pluginOptions);
 
@@ -109,7 +109,7 @@ class WhHighCharts extends CWidget
         $options = CJavaScript::encode($this->pluginOptions);
 
         $cs->registerScript(
-            __CLASS__ . '#' . $this->getId(),
+            self::class . '#' . $this->getId(),
             "var highchart{$this->getId()} = new Highcharts.Chart({$options});"
         );
     }

@@ -1,6 +1,6 @@
 <?php
 // Simplified Chinese
-return array (
+return  [
     'prefixAgo' => NULL,
     'prefixFromNow' => "从现在开始",
     'suffixAgo' => "之前",
@@ -17,6 +17,6 @@ return array (
     'year' => "大约 1 年",
     'years' => "%d 年",
     'wordSeparator' => '',
-    'rules' => array(),
-    'numbers' => array (),
-);
+    'rules' => [],
+    'numbers' =>  [],
+];

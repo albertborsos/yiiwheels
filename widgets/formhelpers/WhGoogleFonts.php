@@ -26,7 +26,7 @@ class WhGoogleFonts extends CInputWidget
      * - families
      * @see http://vincentlamanna.com/BootstrapFormHelpers/googlefont.html
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var bool whether to use bootstrap helper select Box widget
@@ -36,7 +36,7 @@ class WhGoogleFonts extends CInputWidget
     /**
      * @var array extra config options for helper select box
      */
-    public $helperOptions = array();
+    public $helperOptions = [];
 
 
     /**
@@ -46,7 +46,7 @@ class WhGoogleFonts extends CInputWidget
     public function init()
     {
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         TbHtml::addCssClass('bfh-googlefonts', $this->htmlOptions);
     }
@@ -65,7 +65,7 @@ class WhGoogleFonts extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -74,24 +74,20 @@ class WhGoogleFonts extends CInputWidget
             $select = Yii::createComponent(
                 CMap::mergeArray(
                     $this->helperOptions,
-                    array(
+                    [
                         'class' => 'yiiwheels.widgets.formhelpers.WhSelectBox',
                         'htmlOptions' => $this->htmlOptions,
                         'model' => $this->model,
                         'attribute' => $this->attribute,
                         'name' => $this->name,
                         'value' => $this->value,
-                        'wrapperOptions' => array(
+                        'wrapperOptions' => [
                             'class' => 'bfh-googlefonts',
                             'data-family' => $this->hasModel() ? $this->model->{$this->attribute} : $this->value,
-                            'data-subsets' => isset($this->pluginOptions['subsets'])
-                                    ? $this->pluginOptions['subsets']
-                                    : null,
-                            'data-families' => isset($this->pluginOptions['families'])
-                                    ? $this->pluginOptions['families']
-                                    : null
-                        )
-                    )
+                            'data-subsets' => $this->pluginOptions['subsets'] ?? null,
+                            'data-families' => $this->pluginOptions['families'] ?? null
+                        ]
+                    ]
                 )
             );
             $select->init();
@@ -100,16 +96,12 @@ class WhGoogleFonts extends CInputWidget
             $this->htmlOptions['data-family'] = $this->hasModel()
                 ? $this->model->{$this->attribute}
                 : $this->value;
-            $this->htmlOptions['data-subsets'] = isset($this->pluginOptions['subsets'])
-                ? $this->pluginOptions['subsets']
-                : null;
-            $this->htmlOptions['data-families'] = isset($this->pluginOptions['families'])
-                ? $this->pluginOptions['families']
-                : null;
+            $this->htmlOptions['data-subsets'] = $this->pluginOptions['subsets'] ?? null;
+            $this->htmlOptions['data-families'] = $this->pluginOptions['families'] ?? null;
             if ($this->hasModel()) {
-                echo CHtml::activeDropDownList($this->model, $this->attribute, array(), $this->htmlOptions);
+                echo CHtml::activeDropDownList($this->model, $this->attribute, [], $this->htmlOptions);
             } else {
-                echo CHtml::dropDownList($name, $this->value, array(), $this->htmlOptions);
+                echo CHtml::dropDownList($name, $this->value, [], $this->htmlOptions);
             }
         }
     }
@@ -120,7 +112,7 @@ class WhGoogleFonts extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

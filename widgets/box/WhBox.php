@@ -41,19 +41,19 @@ class WhBox extends CWidget
      * @var array
      * box HTML additional attributes
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * @var array
      * box header HTML additional attributes
      */
-    public $htmlHeaderOptions = array();
+    public $htmlHeaderOptions = [];
 
     /**
      * @var array
      * box content HTML additional attributes
      */
-    public $htmlContentOptions = array();
+    public $htmlContentOptions = [];
 
     /**
      * @var array the configuration for additional header buttons. Each array element specifies a single button
@@ -65,7 +65,7 @@ class WhBox extends CWidget
      * )
      * </pre>
      */
-    public $headerButtons = array();
+    public $headerButtons = [];
 
     /**
      *### .init()
@@ -96,7 +96,7 @@ class WhBox extends CWidget
             $this->htmlHeaderOptions['class'] = 'bootstrap-widget-header';
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         echo CHtml::openTag('div', $this->htmlOptions);
 
@@ -162,15 +162,15 @@ class WhBox extends CWidget
                 $button = $options['class'];
                 unset($options['class']);
 
-                if (strpos($button, 'TbButton') === false) {
+                if (!str_contains((string) $button, 'TbButton')) {
                     throw new CException('message');
                 }
 
                 if (!isset($options['htmlOptions'])) {
-                    $options['htmlOptions'] = array();
+                    $options['htmlOptions'] = [];
                 }
 
-                $class = isset($options['htmlOptions']['class']) ? $options['htmlOptions']['class'] : '';
+                $class = $options['htmlOptions']['class'] ?? '';
                 $options['htmlOptions']['class'] = $class . ' pull-right';
 
                 $this->controller->widget($button, $options);
@@ -211,7 +211,7 @@ class WhBox extends CWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

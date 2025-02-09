@@ -34,7 +34,7 @@ class WhMaskInput extends CInputWidget
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**
@@ -51,7 +51,7 @@ class WhMaskInput extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -69,7 +69,7 @@ class WhMaskInput extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -82,6 +82,6 @@ class WhMaskInput extends CInputWidget
 
         $options = !empty($this->pluginOptions) ? CJavaScript::encode($this->pluginOptions) : '{}';
         $script = "jQuery('{$selector}').mask('{$this->mask}',{$options});";
-        Yii::app()->clientScript->registerScript((uniqid(__CLASS__ . '#', true)), $script, CClientScript::POS_END);
+        Yii::app()->clientScript->registerScript((uniqid(self::class . '#', true)), $script, CClientScript::POS_END);
     }
 }

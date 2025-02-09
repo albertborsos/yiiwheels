@@ -24,12 +24,12 @@ class WhTimeAgo extends CWidget
     /**
      * @var array additional HTML attributes to the tag
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * @var array plugin options
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var string the language
@@ -53,7 +53,7 @@ class WhTimeAgo extends CWidget
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         $this->htmlOptions['id'] = TbArray::getValue('id', $this->htmlOptions, $this->getId());
 
@@ -81,7 +81,7 @@ class WhTimeAgo extends CWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

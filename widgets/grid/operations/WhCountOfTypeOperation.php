@@ -42,20 +42,21 @@ class WhCountOfTypeOperation extends WhOperation
      *      '2' => array('label' => 'twos')
      * </pre>
      */
-    public $types = array();
+    public $types = [];
 
 
     /**
      * Widget's initialization
      * @throws CException
      */
+    #[\Override]
     public function init()
     {
         if (empty($this->types)) {
             throw new CException(Yii::t(
                 'zii',
                 '"{attribute}" attribute must be defined',
-                array('{attribute}' => 'types')
+                ['{attribute}' => 'types']
             ));
         }
         foreach ($this->types as $type) {
@@ -76,7 +77,7 @@ class WhCountOfTypeOperation extends WhOperation
      */
     public function processValue($value)
     {
-        $clean = strip_tags($value);
+        $clean = strip_tags((string) $value);
 
         if (array_key_exists($clean, $this->types)) {
             if (!isset($this->types[$clean]['value'])) {
@@ -93,7 +94,7 @@ class WhCountOfTypeOperation extends WhOperation
      */
     public function displaySummary()
     {
-        $typesResults = array();
+        $typesResults = [];
         foreach ($this->types as $type) {
             if (!isset($type['value'])) {
                 $type['value'] = 0;
@@ -101,9 +102,9 @@ class WhCountOfTypeOperation extends WhOperation
 
             $typesResults[] = strtr(
                 $this->typeTemplate,
-                array('{label}' => $type['label'], '{value}' => $type['value'])
+                ['{label}' => $type['label'], '{value}' => $type['value']]
             );
         }
-        echo strtr($this->template, array('{label}' => $this->label, '{types}' => implode(' ', $typesResults)));
+        echo strtr($this->template, ['{label}' => $this->label, '{types}' => implode(' ', $typesResults)]);
     }
 }

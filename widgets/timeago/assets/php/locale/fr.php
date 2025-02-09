@@ -1,6 +1,6 @@
 <?php
 // French
-return array (
+return  [
     // environ ~= about, it's optional
     'prefixAgo' => "il y a",
     'prefixFromNow' => "d'ici",
@@ -18,6 +18,6 @@ return array (
     'year' => "un an",
     'years' => "%d ans",
     'wordSeparator' => ' ',
-    'rules' => array(),
-    'numbers' => array (),
-);
+    'rules' => [],
+    'numbers' =>  [],
+];

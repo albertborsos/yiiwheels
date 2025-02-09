@@ -27,19 +27,19 @@ class WhChart extends CBehavior
     {
         echo '<div class="row-fluid">';
         echo TbHtml::buttonGroup(
-            array(
-                array(
+            [
+                [
                     'label' => Yii::t('zii', 'Display Grid'),
                     'url' => '#',
-                    'htmlOptions' => array('class' => 'active ' . $this->grid->getId() . '-grid-control grid')
-                ),
-                array(
+                    'htmlOptions' => ['class' => 'active ' . $this->grid->getId() . '-grid-control grid']
+                ],
+                [
                     'label' => Yii::t('zii', 'Display Chart'),
                     'url' => '#',
-                    'htmlOptions' => array('class' => $this->grid->getId() . '-grid-control chart')
-                ),
-            ),
-            array('toggle' => TbHtml::BUTTON_TOGGLE_RADIO, 'style' => 'margin-bottom:5px', 'class' => 'pull-right')
+                    'htmlOptions' => ['class' => $this->grid->getId() . '-grid-control chart']
+                ],
+            ],
+            ['toggle' => TbHtml::BUTTON_TOGGLE_RADIO, 'style' => 'margin-bottom:5px', 'class' => 'pull-right']
         );
         echo '</div>';
 
@@ -100,7 +100,7 @@ class WhChart extends CBehavior
         }
 
         if (!isset($this->grid->chartOptions['config'])) {
-            $this->grid->chartOptions['config'] = array();
+            $this->grid->chartOptions['config'] = [];
         }
 
         $this->renderChartControlButtons();
@@ -110,17 +110,17 @@ class WhChart extends CBehavior
         // chart options
         $data = $this->grid->dataProvider->getData();
         $count = count($data);
-        $seriesData = array();
+        $seriesData = [];
         $cnt = 0;
         foreach ($configSeries as $set) {
-            $seriesData[$cnt] = array('name' => isset($set['name']) ? $set['name'] : null, 'data' => array());
+            $seriesData[$cnt] = ['name' => $set['name'] ?? null, 'data' => []];
 
             for ($row = 0; $row < $count; ++$row) {
                 $column = $this->grid->getColumnByName($set['attribute']);
                 if (!is_null($column) && $column->value !== null) {
                     $seriesData[$cnt]['data'][] = $this->evaluateExpression(
                         $column->value,
-                        array('data' => $data[$row], 'row' => $row)
+                        ['data' => $data[$row], 'row' => $row]
                     );
                 } else {
                     $value = CHtml::value($data[$row], $set['attribute']);
@@ -131,11 +131,11 @@ class WhChart extends CBehavior
             ++$cnt;
         }
 
-        $options = CMap::mergeArray($this->grid->chartOptions['config'], array('series' => $seriesData));
+        $options = CMap::mergeArray($this->grid->chartOptions['config'], ['series' => $seriesData]);
 
         $this->grid->chartOptions['htmlOptions'] = isset($this->grid->chartOptions['htmlOptions'])
             ? $this->chartOptions['htmlOptions']
-            : array();
+            : [];
 
         // sorry but use a class to provide styles, we need this
         $this->grid->chartOptions['htmlOptions']['style'] = 'display:none';
@@ -147,7 +147,7 @@ class WhChart extends CBehavior
             if (isset($options['chart']) && is_array($options['chart'])) {
                 $options['chart']['renderTo'] = $chartId;
             } else {
-                $options['chart'] = array('renderTo' => $chartId);
+                $options['chart'] = ['renderTo' => $chartId];
             }
             $jsOptions = CJSON::encode($options);
 
@@ -161,12 +161,12 @@ class WhChart extends CBehavior
 
             $this->grid->componentsAfterAjaxUpdate[] = "highchart{$chartId} = new Highcharts.Chart($('#{$chartId}').data('config'));";
         }
-        $configChart = array(
+        $configChart = [
             'class' => 'yiiwheels.widgets.highcharts.WhHighCharts',
             'id' => $chartId,
             'pluginOptions' => $options,
             'htmlOptions' => $this->grid->chartOptions['htmlOptions']
-        );
+        ];
         $chart = Yii::createComponent($configChart);
         $chart->init();
         $chart->run();

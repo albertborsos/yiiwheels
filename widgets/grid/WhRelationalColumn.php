@@ -69,12 +69,10 @@ class WhRelationalColumn extends TbDataColumn
      */
     public function init()
     {
-        parent::init();
-
         if (empty($this->url))
             $this->url = Yii::app()->getRequest()->requestUri;
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
         $this->registerClientScript();
     }
 
@@ -90,14 +88,14 @@ class WhRelationalColumn extends TbDataColumn
         $data = $this->grid->dataProvider->data[$row];
         $options = $this->htmlOptions;
         if ($this->cssClassExpression !== null) {
-            $class = $this->evaluateExpression($this->cssClassExpression, array('row' => $row, 'data' => $data));
+            $class = $this->evaluateExpression($this->cssClassExpression, ['row' => $row, 'data' => $data]);
             if (isset($options['class']))
                 $options['class'] .= ' ' . $class;
             else
                 $options['class'] = $class;
         }
         echo CHtml::openTag('td', $options);
-        echo CHtml::openTag('span', array('class' => $this->cssClass, 'data-rowid' => $this->getPrimaryKey($data)));
+        echo CHtml::openTag('span', ['class' => $this->cssClass, 'data-rowid' => $this->getPrimaryKey($data)]);
         $this->renderDataCellContent($row, $data);
         echo '</span>';
         echo '</td>';
@@ -139,10 +137,7 @@ class WhRelationalColumn extends TbDataColumn
         $cs->registerCssFile($assetsUrl . '/css/bootstrap-relational.css');
 
         if ($this->afterAjaxUpdate !== null) {
-            if ((!$this->afterAjaxUpdate instanceof CJavaScriptExpression) && strpos(
-                    $this->afterAjaxUpdate,
-                    'js:'
-                ) !== 0
+            if ((!$this->afterAjaxUpdate instanceof CJavaScriptExpression) && !str_starts_with($this->afterAjaxUpdate, 'js:')
             )
                 $this->afterAjaxUpdate = new CJavaScriptExpression($this->afterAjaxUpdate);
         } else
@@ -218,6 +213,6 @@ $(document).on('click','.{$this->cssClass}', function(){
 	});
 });
 EOD;
-        $cs->registerScript(__CLASS__ . '#' . $this->id, $js);
+        $cs->registerScript(self::class . '#' . $this->id, $js);
     }
 }

@@ -73,7 +73,7 @@ class WhGridView extends TbGridView
      * ),
      * </pre>
      */
-    public $extendedSummary = array();
+    public $extendedSummary = [];
 
     /**
      * @var string $extendedSummaryCssClass is the class name of the layer containing the extended summary
@@ -83,26 +83,26 @@ class WhGridView extends TbGridView
     /**
      * @var array $extendedSummaryOptions the HTML attributes of the layer containing the extended summary
      */
-    public $extendedSummaryOptions = array();
+    public $extendedSummaryOptions = [];
 
     /**
      * @var array $componentsAfterAjaxUpdate has scripts that will be executed after components have updated.
      * It is used internally to render scripts required for components to work correctly.  You may use it for your own
      * scripts, just make sure it is of type array.
      */
-    public $componentsAfterAjaxUpdate = array();
+    public $componentsAfterAjaxUpdate = [];
 
     /**
      * @var array $componentsReadyScripts hold scripts that will be executed on document ready.
      * It is used internally to render scripts required for components to work correctly. You may use it for your own
      * scripts, just make sure it is of type array.
      */
-    public $componentsReadyScripts = array();
+    public $componentsReadyScripts = [];
 
     /**
      * @var array $chartOptions if configured, the extended view will display a highcharts chart.
      */
-    public $chartOptions = array();
+    public $chartOptions = [];
 
     /**
      * @var bool whether to make the grid responsive
@@ -118,22 +118,23 @@ class WhGridView extends TbGridView
     /**
      * @var WhOperation[] $extendedSummaryTypes hold the current configured TbOperation that will process column values.
      */
-    protected $extendedSummaryTypes = array();
+    protected $extendedSummaryTypes = [];
 
     /**
      * @var array $extendedSummaryOperations hold the supported operation types
      */
-    protected $extendedSummaryOperations = array(
+    protected $extendedSummaryOperations = [
         'yiiwheels.widgets.grid.operations.WhSumOperation',
         'yiiwheels.widgets.grid.operations.WhCountOfTypeOperation',
         'yiiwheels.widgets.grid.operations.WhPercentOfTypeOperation',
         'yiiwheels.widgets.grid.operations.WhPercentOfTypeEasyPieOperation',
         'yiiwheels.widgets.grid.operations.WhPercentOfTypeGooglePieOperation'
-    );
+    ];
 
     /**
      * Widget initialization
      */
+    #[\Override]
     public function init()
     {
         if (preg_match(
@@ -145,8 +146,8 @@ class WhGridView extends TbGridView
             $this->displayExtendedSummary = true;
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
-        $this->attachBehavior('ywchart', array('class' => 'yiiwheels.widgets.grid.behaviors.WhChart'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
+        $this->attachBehavior('ywchart', ['class' => 'yiiwheels.widgets.grid.behaviors.WhChart']);
 
         parent::init();
     }
@@ -248,12 +249,12 @@ class WhGridView extends TbGridView
      */
     public function renderTableRow($row)
     {
-        $htmlOptions = array();
+        $htmlOptions = [];
         if ($this->rowHtmlOptionsExpression !== null) {
             $data = $this->dataProvider->data[$row];
             $options = $this->evaluateExpression(
                 $this->rowHtmlOptionsExpression,
-                array('row' => $row, 'data' => $data)
+                ['row' => $row, 'data' => $data]
             );
             if (is_array($options)) {
                 $htmlOptions = $options;
@@ -262,7 +263,7 @@ class WhGridView extends TbGridView
 
         if ($this->rowCssClassExpression !== null) {
             $data = $this->dataProvider->data[$row];
-            $class = $this->evaluateExpression($this->rowCssClassExpression, array('row' => $row, 'data' => $data));
+            $class = $this->evaluateExpression($this->rowCssClassExpression, ['row' => $row, 'data' => $data]);
         } elseif (is_array($this->rowCssClass) && ($n = count($this->rowCssClass)) > 0) {
             $class = $this->rowCssClass[$row % $n];
         }
@@ -346,7 +347,7 @@ class WhGridView extends TbGridView
         }
 
         $cs->registerScript(
-            __CLASS__ . '#Wh' . $this->id,
+            self::class . '#Wh' . $this->id,
             '$grid = $("#' . $this->id . '");' .
             $fixedHeaderJs . '
 			if ($(".' . $this->extendedSummaryCssClass . '", $grid).length)
@@ -395,7 +396,7 @@ class WhGridView extends TbGridView
     public function getColumnByName($name)
     {
         foreach ($this->columns as $column) {
-            if (strcmp($column->name, $name) === 0) {
+            if (strcmp((string) $column->name, $name) === 0) {
                 return $column;
             }
         }
@@ -405,11 +406,12 @@ class WhGridView extends TbGridView
     /**
      * Creates column objects and initializes them.
      */
+    #[\Override]
     protected function initColumns()
     {
         parent::initColumns();
         if ($this->responsiveTable) {
-            $this->attachBehavior('ywresponsive', array('class' => 'yiiwheels.widgets.grid.behaviors.WhResponsive'));
+            $this->attachBehavior('ywresponsive', ['class' => 'yiiwheels.widgets.grid.behaviors.WhResponsive']);
             $this->writeResponsiveCss($this->columns, $this->id);
         }
     }
@@ -463,7 +465,7 @@ class WhGridView extends TbGridView
             throw new CException(Yii::t(
                 'zii',
                 '"{operation}" is an unsupported class operation.',
-                array('{operation}' => $config['class'])
+                ['{operation}' => $config['class']]
             ));
         }
 

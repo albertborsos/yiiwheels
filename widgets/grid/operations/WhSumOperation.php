@@ -27,13 +27,14 @@ class WhSumOperation extends WhOperation
     /**
      * @var array $supportedTypes the supported type of values
      */
-    protected $supportedTypes = array('raw', 'text', 'ntext', 'number');
+    protected $supportedTypes = ['raw', 'text', 'ntext', 'number'];
 
 
     /**
      * Widget's initialization method
      * @throws CException
      */
+    #[\Override]
     public function init()
     {
         parent::init();
@@ -42,9 +43,9 @@ class WhSumOperation extends WhOperation
             throw new CException(Yii::t(
                 'zii',
                 'Unsupported column type. Supported column types are: "{types}"',
-                array(
+                [
                     '{types}' => implode(', ', $this->supportedTypes)
-                )
+                ]
             ));
         }
     }
@@ -57,10 +58,10 @@ class WhSumOperation extends WhOperation
     {
         echo strtr(
             $this->template,
-            array(
+            [
                 '{label}' => $this->label,
                 '{value}' => $this->total === null ? '' : Yii::app()->format->format($this->total, $this->column->type)
-            )
+            ]
         );
     }
 
@@ -74,7 +75,7 @@ class WhSumOperation extends WhOperation
     public function processValue($value)
     {
         // remove html tags as we cannot access renderDataCellContent from the column
-        $clean = preg_replace('/\s+/', '', strip_tags($value));
+        $clean = preg_replace('/\s+/', '', strip_tags((string) $value));
         $this->total += ((float)$this->extractNumber($clean));
     }
 
