@@ -63,7 +63,7 @@ class WhSwitch extends CInputWidget
     /**
      * @var string[] the JavaScript event handlers.
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * @var bool whether to display minified versions of the files or not
@@ -73,7 +73,7 @@ class WhSwitch extends CInputWidget
     /**
      * @var array the switch plugin options.
      */
-    protected $pluginOptions = array();
+    protected $pluginOptions = [];
 
 
     /**
@@ -82,13 +82,13 @@ class WhSwitch extends CInputWidget
      */
     public function init()
     {
-        if (!in_array($this->inputType, array('radio', 'checkbox'))) {
+        if (!in_array($this->inputType, ['radio', 'checkbox'])) {
             throw new CException(Yii::t('zii', '"inputType" attribute must be of type "radio" or "checkbox"'));
         }
-        if (!in_array($this->size, array('mini', 'small', 'large'))) {
+        if (!in_array($this->size, ['mini', 'small', 'large'])) {
             throw new CException(Yii::t('zii', 'Unknown value for attribute "size".'));
         }
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         TbHtml::addCssClass('make-switch', $this->pluginOptions);
         TbHtml::addCssClass('switch-' . $this->size, $this->pluginOptions);
@@ -116,7 +116,7 @@ class WhSwitch extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -142,7 +142,7 @@ class WhSwitch extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

@@ -29,7 +29,7 @@ class WhToggleAction extends CAction
     /**
      * @var array additional criteria to use to get the model
      */
-    public $additionalCriteriaOnLoadModel = array();
+    public $additionalCriteriaOnLoadModel = [];
 
     /**
      * @var mixed the route to redirect the call after updating attribute
@@ -70,7 +70,7 @@ class WhToggleAction extends CAction
         if (Yii::app()->getRequest()->isPostRequest) {
             $model = $this->loadModel($id);
             $model->$attribute = ($model->$attribute == $this->noValue) ? $this->yesValue : $this->noValue;
-            $success = $model->save(false, array($attribute));
+            $success = $model->save(false, [$attribute]);
 
             if (Yii::app()->getRequest()->isAjaxRequest) {
                 echo $success ? $this->ajaxResponseOnSuccess : $this->ajaxResponseOnFailed;
@@ -100,10 +100,10 @@ class WhToggleAction extends CAction
             $finder = CActiveRecord::model($this->modelName);
             $c = new CDbCriteria($this->additionalCriteriaOnLoadModel);
             $c->mergeWith(
-                array(
+                [
                     'condition' => $finder->tableSchema->primaryKey . '=:id',
-                    'params' => array(':id' => $id),
-                )
+                    'params' => [':id' => $id],
+                ]
             );
             $model = $finder->find($c);
         }

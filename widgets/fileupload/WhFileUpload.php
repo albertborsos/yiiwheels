@@ -76,7 +76,7 @@ class WhFileUpload extends CJuiInputWidget
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         if ($this->uploadTemplate === null) {
             $this->uploadTemplate = "#template-upload";
@@ -98,13 +98,13 @@ class WhFileUpload extends CJuiInputWidget
     public function run()
     {
 
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
-        $this->htmlOptions['id'] = ($this->hasModel() ? get_class($this->model) : 'fileupload') . '-form';
+        $this->htmlOptions['id'] = ($this->hasModel() ? $this->model::class : 'fileupload') . '-form';
 
         $this->options['url'] = $this->url;
 
-        $htmlOptions = array();
+        $htmlOptions = [];
 
         if ($this->multiple) {
             $htmlOptions["multiple"] = true;
@@ -112,7 +112,7 @@ class WhFileUpload extends CJuiInputWidget
 
         $this->render($this->uploadView);
         $this->render($this->downloadView);
-        $this->render($this->formView, array('model', $this->model, 'name' => $name, 'htmlOptions' => $htmlOptions));
+        $this->render($this->formView, ['model', $this->model, 'name' => $name, 'htmlOptions' => $htmlOptions]);
 
         if ($this->previewImages || $this->imageProcessing) {
             $this->render($this->previewImagesView);
@@ -128,7 +128,7 @@ class WhFileUpload extends CJuiInputWidget
     {
 
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

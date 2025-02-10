@@ -31,12 +31,12 @@ class WhAceEditor extends CInputWidget
     /**
      * @var array the options for the ace editor
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var string[] the JavaScript event handlers.
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * Initializes the widget.
@@ -47,7 +47,7 @@ class WhAceEditor extends CInputWidget
             throw new CException(Yii::t(
                 'zii',
                 '"{attribute}" cannot be empty.',
-                array('{attribute}' => 'theme')
+                ['{attribute}' => 'theme']
             ));
         }
 
@@ -55,11 +55,11 @@ class WhAceEditor extends CInputWidget
             throw new CException(Yii::t(
                 'zii',
                 '"{attribute}" cannot be empty.',
-                array('{attribute}' => 'mode')
+                ['{attribute}' => 'mode']
             ));
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**
@@ -76,7 +76,7 @@ class WhAceEditor extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -107,7 +107,7 @@ class WhAceEditor extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -118,7 +118,7 @@ class WhAceEditor extends CInputWidget
         $id = TbArray::getValue('id', $this->htmlOptions, $this->getId());
 
         /* Global value that will hold the editor */
-        $cs->registerScript(uniqid(__CLASS__ . '#' . $id, true), 'var ' . $id . ';', CClientScript::POS_HEAD);
+        $cs->registerScript(uniqid(self::class . '#' . $id, true), 'var ' . $id . ';', CClientScript::POS_HEAD);
 
         ob_start();
         /* initialize plugin */
@@ -148,6 +148,6 @@ class WhAceEditor extends CInputWidget
         if (!empty($this->pluginOptions))
             echo $selector . '.setOptions(' . CJavaScript::encode($this->pluginOptions) . ')';
 
-        $cs->registerScript(uniqid(__CLASS__ . '#ReadyJS' . $id, true), ob_get_clean());
+        $cs->registerScript(uniqid(self::class . '#ReadyJS' . $id, true), ob_get_clean());
     }
 }

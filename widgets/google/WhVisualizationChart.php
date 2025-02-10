@@ -29,18 +29,18 @@ class WhVisualizationChart extends CWidget
      * @var array $data the data to configure visualization
      * @see https://google-developers.appspot.com/chart/interactive/docs/datatables_dataviews#arraytodatatable
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * @var array $options additional configuration options
      * @see https://google-developers.appspot.com/chart/interactive/docs/customizing_charts
      */
-    public $options = array();
+    public $options = [];
 
     /**
      * @var array $htmlOption the HTML tag attributes configuration
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * Widget's run method
@@ -82,7 +82,7 @@ class WhVisualizationChart extends CWidget
         $cs = Yii::app()->getClientScript();
         $cs->registerScriptFile('https://www.google.com/jsapi');
         $cs->registerScript(
-            __CLASS__ . '#' . $id,
+            self::class . '#' . $id,
             'google.load("visualization", "1", {packages:["corechart"]});',
             CClientScript::POS_HEAD
         );

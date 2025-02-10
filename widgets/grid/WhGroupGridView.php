@@ -32,7 +32,7 @@ class WhGroupGridView extends TbGridView
     /**
      * @var array $mergeColumns the columns to merge on the grid
      */
-    public $mergeColumns = array();
+    public $mergeColumns = [];
 
     /**
      * @var string $mergeType the merge type. Defaults to MERGE_SIMPLE
@@ -47,7 +47,7 @@ class WhGroupGridView extends TbGridView
     /**
      * @var array $extraRowColumns the group column names
      */
-    public $extraRowColumns = array();
+    public $extraRowColumns = [];
 
     /**
      * @var string $extraRowExpression
@@ -57,7 +57,7 @@ class WhGroupGridView extends TbGridView
     /**
      * @var array the HTML options for the extrarow cell tag.
      */
-    public $extraRowHtmlOptions = array();
+    public $extraRowHtmlOptions = [];
 
     /**
      * @var string $extraRowCssClass the class to be used to be set on the extrarow cell tag.
@@ -72,6 +72,7 @@ class WhGroupGridView extends TbGridView
     /**
      * Widget initialization
      */
+    #[\Override]
     public function init()
     {
         parent::init();
@@ -82,7 +83,7 @@ class WhGroupGridView extends TbGridView
         if (!empty($this->extraRowColumns)) {
             foreach ($this->columns as $column) {
                 if ($column instanceof CDataColumn && in_array($column->name, $this->extraRowColumns)) {
-                    $column->filterHtmlOptions = array('style' => 'display:none');
+                    $column->filterHtmlOptions = ['style' => 'display:none'];
                     $column->filter = false;
                 }
             }
@@ -105,8 +106,6 @@ class WhGroupGridView extends TbGridView
         if (!empty($this->mergeColumns) || !empty($this->extraRowColumns)) {
             $this->groupByColumns();
         }
-
-        parent::renderTableBody();
     }
 
     /**
@@ -120,10 +119,10 @@ class WhGroupGridView extends TbGridView
         }
 
         if (!is_array($this->mergeColumns)) {
-            $this->mergeColumns = array($this->mergeColumns);
+            $this->mergeColumns = [$this->mergeColumns];
         }
         if (!is_array($this->extraRowColumns)) {
-            $this->extraRowColumns = array($this->extraRowColumns);
+            $this->extraRowColumns = [$this->extraRowColumns];
         }
 
         //store columns for group. Set object for existing columns in grid and string for attributes
@@ -141,11 +140,11 @@ class WhGroupGridView extends TbGridView
         //values for first row
         $lastStored = $this->getRowValues($groupColumns, $data[0], 0);
         foreach ($lastStored as $colName => $value) {
-            $lastStored[$colName] = array(
+            $lastStored[$colName] = [
                 'value' => $value,
                 'count' => 1,
                 'index' => 0,
-            );
+            ];
         }
 
         //iterate data
@@ -154,7 +153,7 @@ class WhGroupGridView extends TbGridView
             $current = $this->getRowValues($groupColumns, $data[$i], $i);
 
             //define is change occurred. Need this extra foreach for correctly proceed extraRows
-            $changedColumns = array();
+            $changedColumns = [];
             foreach ($current as $colName => $curValue) {
                 if ($curValue != $lastStored[$colName]['value']) {
                     $changedColumns[] = $colName;
@@ -189,11 +188,11 @@ class WhGroupGridView extends TbGridView
                     }
 
                     //update lastStored for particular column
-                    $lastStored[$colName] = array(
+                    $lastStored[$colName] = [
                         'value' => $curValue,
                         'count' => 1,
                         'index' => $i,
-                    );
+                    ];
 
                 } else {
                     $lastStored[$colName]['count']++;
@@ -234,7 +233,7 @@ class WhGroupGridView extends TbGridView
             $data = $this->dataProvider->data[$row];
             echo '<tr class="' . $this->evaluateExpression(
                     $this->rowCssClassExpression,
-                    array('row' => $row, 'data' => $data)
+                    ['row' => $row, 'data' => $data]
                 ) . '">';
         } else if (is_array($this->rowCssClass) && ($n = count($this->rowCssClass)) > 0) {
             echo '<tr class="' . $this->rowCssClass[$row % $n] . '">';
@@ -265,7 +264,7 @@ class WhGroupGridView extends TbGridView
                             $options = $column->htmlOptions;
                             $column->htmlOptions['rowspan'] = $change['columns'][$column->name]['count'];
                             $column->htmlOptions['class'] = 'merge';
-                            $style = isset($column->htmlOptions['style']) ? $column->htmlOptions['style'] : '';
+                            $style = $column->htmlOptions['style'] ?? '';
                             $column->htmlOptions['style'] = $style . ';' . $this->mergeCellCss;
                             $column->renderDataCell($row);
                             $column->htmlOptions = $options;
@@ -312,7 +311,7 @@ class WhGroupGridView extends TbGridView
                 }
             }
         }
-        return isset($result) ? $result : false;
+        return $result ?? false;
     }
 
     /**
@@ -328,10 +327,10 @@ class WhGroupGridView extends TbGridView
         if ($this->extraRowExpression) { //user defined expression, use it!
             $content = $this->evaluateExpression(
                 $this->extraRowExpression,
-                array('data' => $data, 'row' => $beforeRow, 'values' => $change['columns'])
+                ['data' => $data, 'row' => $beforeRow, 'values' => $change['columns']]
             );
         } else { //generate value
-            $values = array();
+            $values = [];
             foreach ($columnsInExtra as $c) {
                 $values[] = $change['columns'][$c]['value'];
             }
@@ -361,7 +360,7 @@ class WhGroupGridView extends TbGridView
     private function getDataCellContent($column, $data, $row)
     {
         if ($column->value !== null) {
-            $value = $column->evaluateExpression($column->value, array('data' => $data, 'row' => $row));
+            $value = $column->evaluateExpression($column->value, ['data' => $data, 'row' => $row]);
         } else if ($column->name !== null) {
             $value = CHtml::value($data, $column->name);
         }

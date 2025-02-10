@@ -20,19 +20,19 @@ class WhDatePicker extends CInputWidget
     /**
      * @var array the options for the Bootstrap JavaScript plugin.
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var string[] the JavaScript event handlers.
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * Initializes the widget.
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         TbArray::defaultValue('autocomplete', 'off', $this->htmlOptions);
         TbHtml::addCssClass('grd-white', $this->htmlOptions);
@@ -63,7 +63,7 @@ class WhDatePicker extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -82,7 +82,7 @@ class WhDatePicker extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

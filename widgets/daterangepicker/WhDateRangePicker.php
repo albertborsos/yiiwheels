@@ -34,14 +34,14 @@ class WhDateRangePicker extends CInputWidget
     /**
      * @var array pluginOptions to be passed to daterange picker plugin
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * Initializes the widget.
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
         $this->htmlOptions['id'] = TbArray::getValue('id', $this->htmlOptions, $this->getId());
     }
 
@@ -60,7 +60,7 @@ class WhDateRangePicker extends CInputWidget
     public function renderField()
     {
         if (null === $this->selector) {
-            list($name, $id) = $this->resolveNameID();
+            [$name, $id] = $this->resolveNameID();
 
             if ($this->hasModel()) {
                 echo TbHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
@@ -115,7 +115,7 @@ class WhDateRangePicker extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* register required moment.js */
@@ -128,16 +128,14 @@ class WhDateRangePicker extends CInputWidget
         $cs->registerScriptFile($assetsUrl . '/js/daterangepicker.js', CClientScript::POS_END);
 
         /* initialize plugin */
-        $selector = null === $this->selector
-            ? '#' . TbArray::getValue('id', $this->htmlOptions, $this->getId())
-            : $this->selector;
+        $selector = $this->selector ?? '#' . TbArray::getValue('id', $this->htmlOptions, $this->getId());
 
         $callback = ($this->callback instanceof CJavaScriptExpression)
             ? $this->callback
             : ($this->callback === null ? '' : new CJavaScriptExpression($this->callback));
 
         $cs->registerScript(
-            __CLASS__ . '#' . $this->getId(),
+            self::class . '#' . $this->getId(),
             '$("' . $selector . '").daterangepicker(' .
             CJavaScript::encode($this->pluginOptions) .
             ($callback ? ', ' . CJavaScript::encode($callback) : '') .

@@ -21,12 +21,12 @@ class WhMultiSelect extends CInputWidget
     /**
      * @var array @param data for generating the list options (value=>display)
      */
-    public $data = array();
+    public $data = [];
 
     /**
      * @var string[] the JavaScript event handlers.
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * @var array the plugin options
@@ -43,7 +43,7 @@ class WhMultiSelect extends CInputWidget
             throw new CException(Yii::t('zii', '"data" attribute cannot be blank'));
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**
@@ -60,7 +60,7 @@ class WhMultiSelect extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -82,7 +82,7 @@ class WhMultiSelect extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

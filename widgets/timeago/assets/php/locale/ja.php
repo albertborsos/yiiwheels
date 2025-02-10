@@ -1,6 +1,6 @@
 <?php
 // Japanese
-return array (
+return  [
     'prefixAgo' => NULL,
     'prefixFromNow' =>  "今から",
     'suffixAgo' => "前",
@@ -17,6 +17,6 @@ return array (
     'year' => "丁度一年（虎舞流ｗ）",
     'years' => "%d 年",
     'wordSeparator' => '',
-    'rules' => array(),
-    'numbers' => array (),
-);
+    'rules' => [],
+    'numbers' =>  [],
+];

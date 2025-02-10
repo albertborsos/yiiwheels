@@ -23,6 +23,7 @@ class WhVideoCarousel extends WhCarousel
     /**
      * Widget's initialization
      */
+    #[\Override]
     public function init()
     {
         parent::init();
@@ -34,6 +35,7 @@ class WhVideoCarousel extends WhCarousel
      * Renders widget
      * @return null|void
      */
+    #[\Override]
     public function run()
     {
         if (empty($this->items)) {
@@ -46,12 +48,13 @@ class WhVideoCarousel extends WhCarousel
     /**
      * Renders the gallery template
      */
+    #[\Override]
     public function renderTemplate()
     {
-        $options = array(
+        $options = [
             'id' => $this->htmlOptions['id'] . '-videocarousel',
             'class' => 'blueimp-gallery blueimp-gallery-carousel'
-        );
+        ];
         if ($this->displayControls) {
             TbHtml::addCssClass('blueimp-gallery-controls', $options);
         }
@@ -68,6 +71,7 @@ class WhVideoCarousel extends WhCarousel
     /**
      * Registers the script
      */
+    #[\Override]
     public function registerClientScript()
     {
         $this->registerGalleryScriptFiles();
@@ -76,6 +80,6 @@ class WhVideoCarousel extends WhCarousel
         $options = CJavaScript::encode($this->pluginOptions);
         $js = ";blueimp.Gallery({$items}, {$options});";
 
-        Yii::app()->clientScript->registerScript(__CLASS__ . '#' . $this->getId(), $js);
+        Yii::app()->clientScript->registerScript(self::class . '#' . $this->getId(), $js);
     }
 }

@@ -26,7 +26,7 @@ class WhEditableDetailView extends CDetailView
     /**
      * @var array  Data for default fields of WhEditableField
      */
-    private $_data = array();
+    private $_data = [];
 
     /**
      * @var Valid attributes for WhEditableField (singleton)
@@ -45,7 +45,7 @@ class WhEditableDetailView extends CDetailView
         }
 
 
-        $this->htmlOptions = array('class' => 'table table-bordered table-striped table-hover');
+        $this->htmlOptions = ['class' => 'table table-bordered table-striped table-hover'];
         //disable loading Yii's css for bootstrap
         $this->cssFile = false;
 
@@ -66,16 +66,16 @@ class WhEditableDetailView extends CDetailView
 
         if ($apply) {
             //ensure $options['editable'] is array
-            if (!isset($options['editable'])) $options['editable'] = array();
+            if (!isset($options['editable'])) $options['editable'] = [];
 
             //merge options with defaults: url, params, etc.
             $options['editable'] = CMap::mergeArray($this->_data, $options['editable']);
 
             //options to be passed into EditableField (constructed from $options['editable'])
-            $widgetOptions = array(
+            $widgetOptions = [
                 'model' => $this->data,
                 'attribute' => $options['name']
-            );
+            ];
 
             //if value in detailview options provided, set text directly (as value here means text)
             if (isset($options['value']) && $options['value'] !== null) {
@@ -107,9 +107,7 @@ class WhEditableDetailView extends CDetailView
         if (!isset($this->_editableProperties)) {
             $reflection = new ReflectionClass('WhEditableField');
             $this->_editableProperties = array_map(
-                function ($d) {
-                    return $d->getName();
-                },
+                fn($d) => $d->getName(),
                 $reflection->getProperties()
             );
         }

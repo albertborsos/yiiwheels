@@ -20,7 +20,7 @@ class WhRedactor extends CInputWidget
      * Editor options that will be passed to the editor
      * @see http://imperavi.com/redactor/docs/
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * Debug mode
@@ -34,7 +34,7 @@ class WhRedactor extends CInputWidget
     public function init()
     {
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         if (!$style = TbArray::popValue('style', $this->htmlOptions, '')) {
             $this->htmlOptions['style'] = $style;
@@ -59,7 +59,7 @@ class WhRedactor extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -79,7 +79,7 @@ class WhRedactor extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */
@@ -116,7 +116,7 @@ class WhRedactor extends CInputWidget
             $ds = DIRECTORY_SEPARATOR;
             $pluginsPath = __DIR__ . $ds . 'assets' . $ds . 'js' . $ds . 'plugins' . $ds;
             $pluginsUrl = $assetsUrl . '/js/plugins/';
-            $scriptTypes = array('css', 'js');
+            $scriptTypes = ['css', 'js'];
 
             foreach ($this->pluginOptions['plugins'] as $pluginName) {
                 foreach ($scriptTypes as $type) {

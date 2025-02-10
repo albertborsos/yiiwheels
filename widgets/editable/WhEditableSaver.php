@@ -73,7 +73,7 @@ class WhEditableSaver extends CComponent
      *
      * @var mixed
      */
-    protected $changedAttributes = array();
+    protected $changedAttributes = [];
 
     /**
      * Constructor
@@ -95,8 +95,8 @@ class WhEditableSaver extends CComponent
 
         //for non-namespaced models do ucfirst (for backwards compability)
         //see https://github.com/vitalets/x-editable-yii/issues/9
-        if (strpos($this->modelClass, '\\') === false) {
-            $this->modelClass = ucfirst($this->modelClass);
+        if (!str_contains((string) $this->modelClass, '\\')) {
+            $this->modelClass = ucfirst((string) $this->modelClass);
         }
     }
 
@@ -137,10 +137,10 @@ class WhEditableSaver extends CComponent
             throw new CException(Yii::t(
                 'EditableSaver.editable',
                 'Model {class} not found by primary key "{pk}"',
-                array(
-                    '{class}' => get_class($this->model),
+                [
+                    '{class}' => $this->model !== null ? $this->model::class : self::class,
                     '{pk}' => is_array($this->primaryKey) ? CJSON::encode($this->primaryKey) : $this->primaryKey
-                )
+                ]
             ));
         }
 
@@ -167,10 +167,10 @@ class WhEditableSaver extends CComponent
             throw new CException(Yii::t(
                 'editable',
                 'Model {class} rules do not allow to update attribute "{attr}"',
-                array(
-                    '{class}' => get_class($this->model),
+                [
+                    '{class}' => $this->model::class,
                     '{attr}' => $this->attribute
-                )
+                ]
             ));
         }
 
@@ -178,7 +178,7 @@ class WhEditableSaver extends CComponent
         $this->setAttribute($this->attribute, $this->value);
 
         //validate attribute
-        $this->model->validate(array($this->attribute));
+        $this->model->validate([$this->attribute]);
         $this->checkErrors();
 
         //trigger beforeUpdate event
@@ -219,8 +219,8 @@ class WhEditableSaver extends CComponent
     public function checkErrors()
     {
         if ($this->model->hasErrors()) {
-            $msg = array();
-            foreach ($this->model->getErrors() as $attribute => $errors) {
+            $msg = [];
+            foreach ($this->model->getErrors() as $errors) {
                 $msg = array_merge($msg, $errors);
             }
             //todo: show several messages. should be checked in x-editable js

@@ -21,15 +21,17 @@ class WhModal extends TbModal
     /**
      * Widget's initialization
      */
+    #[\Override]
     public function init()
     {
         parent::init();
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**
      * Widget's run method
      */
+    #[\Override]
     public function run()
     {
         parent::run();
@@ -43,7 +45,7 @@ class WhModal extends TbModal
     public function registerPluginFiles()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
 
         $assetsUrl = $this->getAssetsUrl($path);
 

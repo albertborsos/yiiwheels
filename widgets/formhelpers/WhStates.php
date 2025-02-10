@@ -26,7 +26,7 @@ class WhStates extends CInputWidget
      * - state
      * @see http://vincentlamanna.com/BootstrapFormHelpers/state.html
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var bool whether to display the language selection read only or not.
@@ -41,7 +41,7 @@ class WhStates extends CInputWidget
     /**
      * @var array extra config options for helper select box
      */
-    public $helperOptions = array();
+    public $helperOptions = [];
 
 
     /**
@@ -53,7 +53,7 @@ class WhStates extends CInputWidget
         if (!isset($this->pluginOptions['country'])) {
             throw new CException(Yii::t('zii', '$pluginOptions["country"] cannot be blank.'));
         }
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         TbHtml::addCssClass('bfh-states', $this->htmlOptions);
     }
@@ -72,7 +72,7 @@ class WhStates extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -86,19 +86,19 @@ class WhStates extends CInputWidget
             $select = Yii::createComponent(
                 CMap::mergeArray(
                     $this->helperOptions,
-                    array(
+                    [
                         'class' => 'yiiwheels.widgets.formhelpers.WhSelectBox',
                         'htmlOptions' => $this->htmlOptions,
                         'model' => $this->model,
                         'attribute' => $this->attribute,
                         'name' => $this->name,
                         'value' => $this->value,
-                        'wrapperOptions' => array(
+                        'wrapperOptions' => [
                             'class' => 'bfh-countries',
                             'data-country' => $this->hasModel() ? $this->model->{$this->attribute} : $this->value,
                             'data-flags' => isset($this->pluginOptions['flags']) ? 'true' : 'false'
-                        )
-                    )
+                        ]
+                    ]
                 )
             );
             $select->init();
@@ -106,9 +106,9 @@ class WhStates extends CInputWidget
         } else {
             if (!$this->readOnly) {
                 if ($this->hasModel()) {
-                    echo CHtml::activeDropDownList($this->model, $this->attribute, array(), $this->htmlOptions);
+                    echo CHtml::activeDropDownList($this->model, $this->attribute, [], $this->htmlOptions);
                 } else {
-                    echo CHtml::dropDownList($name, $this->value, array(), $this->htmlOptions);
+                    echo CHtml::dropDownList($name, $this->value, [], $this->htmlOptions);
                 }
             } else {
                 echo CHtml::tag('span', $this->htmlOptions);
@@ -122,7 +122,7 @@ class WhStates extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

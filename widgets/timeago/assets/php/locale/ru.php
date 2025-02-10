@@ -1,23 +1,23 @@
 <?php
 // Russian
-return array(
+return [
     'prefixAgo' => NULL,
     'prefixFromNow' => "через",
     'suffixAgo' => "назад",
     'suffixFromNow' => NULL,
     'seconds' => "меньше минуты",
     'minute' => "минуту",
-    'minutes' => array("%d минута", "%d минуты", "%d минут"),
+    'minutes' => ["%d минута", "%d минуты", "%d минут"],
     'hour' => "час",
-    'hours' => array("%d час", "%d часа", "%d часов"),
+    'hours' => ["%d час", "%d часа", "%d часов"],
     'day' => "день",
-    'days' => array("%d день", "%d дня", "%d дней"),
+    'days' => ["%d день", "%d дня", "%d дней"],
     'month' => "месяц",
-    'months' => array("%d месяц", "%d месяца", "%d месяцев"),
+    'months' => ["%d месяц", "%d месяца", "%d месяцев"],
     'year' => "год",
-    'years' => array("%d год", "%d года", "%d лет"),
+    'years' => ["%d год", "%d года", "%d лет"],
     'wordSeparator' => ' ',
-    'numbers' => array(),
+    'numbers' => [],
     'rules' =>
         function($n) {
             $n10 = $n % 10;
@@ -28,4 +28,4 @@ return array(
             }
             return 2;
         },
-);
+];

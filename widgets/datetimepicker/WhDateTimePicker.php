@@ -51,19 +51,19 @@ class WhDateTimePicker extends CInputWidget
      * - startDate: -Infinity, set a minimum date
      * - endDate: Infinityset a maximum date
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var string[] the JavaScript event handlers.
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * Initializes the widget.
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
         $this->htmlOptions['id'] = TbArray::getValue('id', $this->htmlOptions, $this->getId());
         $this->htmlOptions['data-format'] = $this->format;
     }
@@ -83,9 +83,9 @@ class WhDateTimePicker extends CInputWidget
     public function renderField()
     {
         if (null === $this->selector) {
-            $options = array();
+            $options = [];
 
-            list($name, $id) = $this->resolveNameID();
+            [$name, $id] = $this->resolveNameID();
 
             $options['id'] = $id . '_datetimepicker';
             TbHtml::addCssClass('input-append', $options);
@@ -96,7 +96,7 @@ class WhDateTimePicker extends CInputWidget
             } else {
                 echo TbHtml::textField($name, $this->value, $this->htmlOptions);
             }
-            echo TbHtml::openTag('span', array('class' => 'add-on'));
+            echo TbHtml::openTag('span', ['class' => 'add-on']);
             echo '<i data-time-icon="' . $this->iconTime . '" data-date-icon="' . $this->iconDate . '"></i>';
             echo TbHtml::closeTag('span');
             echo TbHtml::closeTag('div');
@@ -111,7 +111,7 @@ class WhDateTimePicker extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
 	/* register required moment.js */
@@ -131,9 +131,7 @@ class WhDateTimePicker extends CInputWidget
         }
         /* initialize plugin */
         /* initialize plugin */
-        $selector = null === $this->selector
-            ? '#' . TbArray::getValue('id', $this->htmlOptions, $this->getId()) . '_datetimepicker'
-            : $this->selector;
+        $selector = $this->selector ?? '#' . TbArray::getValue('id', $this->htmlOptions, $this->getId()) . '_datetimepicker';
 
         $this->getApi()->registerPlugin('datetimepicker', $selector, $this->pluginOptions);
 

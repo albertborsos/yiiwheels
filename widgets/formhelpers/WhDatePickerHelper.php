@@ -27,12 +27,12 @@ class WhDatePickerHelper extends CInputWidget
     /**
      * @var array options of the input
      */
-    public $inputOptions = array();
+    public $inputOptions = [];
 
     /**
      * @var array
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
 
     /**
@@ -42,7 +42,7 @@ class WhDatePickerHelper extends CInputWidget
     public function init()
     {
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         TbHtml::addCssClass('bfh-datepicker', $this->htmlOptions);
         $this->htmlOptions['data-format'] = $this->format;
@@ -71,7 +71,7 @@ class WhDatePickerHelper extends CInputWidget
     public function renderField()
     {
 
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -79,12 +79,12 @@ class WhDatePickerHelper extends CInputWidget
         echo CHtml::openTag('div', $this->htmlOptions);
         echo CHtml::openTag(
             'div',
-            array(
+            [
                 'class' => 'input-prepend bfh-datepicker-toggle',
                 'data-toggle' => 'bfh-datepicker'
-            )
+            ]
         );
-        echo CHtml::tag('span', array('class' => 'add-on'), TbHtml::icon(TbHtml::ICON_CALENDAR));
+        echo CHtml::tag('span', ['class' => 'add-on'], TbHtml::icon(TbHtml::ICON_CALENDAR));
         if ($this->hasModel()) {
             echo CHtml::activeTextField($this->model, $this->attribute, $this->inputOptions);
         } else {
@@ -123,7 +123,7 @@ class WhDatePickerHelper extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

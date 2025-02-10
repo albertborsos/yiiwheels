@@ -1,23 +1,23 @@
 <?php
 // Ukrainian
-return array(
+return [
     'prefixAgo' => NULL,
     'prefixFromNow' => "через",
     'suffixAgo' => "тому",
     'suffixFromNow' => NULL,
     'seconds' => "менше хвилини",
     'minute' => "хвилина",
-    'minutes' => array("%d хвилина", "%d хвилини", "%d хвилин"),
+    'minutes' => ["%d хвилина", "%d хвилини", "%d хвилин"],
     'hour' => "година",
-    'hours' => array("%d година", "%d години", "%d годин"),
+    'hours' => ["%d година", "%d години", "%d годин"],
     'day' => "день",
-    'days' => array("%d день", "%d дні", "%d днів"),
+    'days' => ["%d день", "%d дні", "%d днів"],
     'month' => "місяць",
-    'months' => array("%d місяць", "%d місяці", "%d місяців"),
+    'months' => ["%d місяць", "%d місяці", "%d місяців"],
     'year' => "рік",
-    'years' => array("%d рік", "%d роки", "%d років"),
+    'years' => ["%d рік", "%d роки", "%d років"],
     'wordSeparator' => ' ',
-    'numbers' => array (),
+    'numbers' =>  [],
     'rules' =>
         function($n) {
             $n10 = $n % 10;
@@ -28,4 +28,4 @@ return array(
             }
             return 2;
         },
-);
+];

@@ -22,17 +22,17 @@ Yii::import('yiiwheels.widgets.editable.WhEditable');
 class WhEditableField extends WhEditable
 {
     /**
-     * @var CActiveRecord ActiveRecord to be updated.
+     * @var CActiveRecord|null ActiveRecord to be updated.
      */
     public $model = null;
 
     /**
-     * @var string attribute name.
+     * @var string|null attribute name.
      */
     public $attribute = null;
 
     /**
-     * @var instance of model that is created always:
+     * @var instance|null of model that is created always:
      * E.g. if related model does not exist, it will be `newed` to be able to get Attribute label, etc
      * for live update.
      */
@@ -43,6 +43,7 @@ class WhEditableField extends WhEditable
      * initialization of widget
      *
      */
+    #[\Override]
     public function init()
     {
         if (!$this->model) {
@@ -55,7 +56,7 @@ class WhEditableField extends WhEditable
 
         $originalModel = $this->model;
         $originalAttribute = $this->attribute;
-        $originalText = strlen($this->text) ? $this->text : CHtml::value($this->model, $this->attribute);
+        $originalText = strlen((string) $this->text) ? $this->text : CHtml::value($this->model, $this->attribute);
 
         //if apply set manually to false --> just render text, no js plugin applied
         if ($this->apply === false) {
@@ -65,7 +66,7 @@ class WhEditableField extends WhEditable
         }
 
         //try to resolve related model (if attribute contains '.')
-        $resolved = $this->resolveModels($this->model, $this->attribute);
+        $resolved = static::resolveModels($this->model, $this->attribute);
         $this->model = $resolved['model'];
         $this->attribute = $resolved['attribute'];
         $this->staticModel = $resolved['staticModel'];
@@ -100,7 +101,7 @@ class WhEditableField extends WhEditable
                 if ($dbType == 'datetime') {
                     $this->type = 'datetime';
                 }
-                if (stripos($dbType, 'text') !== false) {
+                if (stripos((string) $dbType, 'text') !== false) {
                     $this->type = 'textarea';
                 }
             }
@@ -131,7 +132,7 @@ class WhEditableField extends WhEditable
          For lists keep it empty to apply autotext.
          $this->_prepareToAutotext calculated in parent class WhEditable.php
         */
-        if (!strlen($this->text) && !$this->_prepareToAutotext) {
+        if (!strlen((string) $this->text) && !$this->_prepareToAutotext) {
             $this->text = $originalText;
         }
 
@@ -142,10 +143,10 @@ class WhEditableField extends WhEditable
 
         //generate title from attribute label
         if ($this->title === null) {
-            $titles = array(
-                'Select' => array('select', 'date'),
-                'Check' => array('checklist')
-            );
+            $titles = [
+                'Select' => ['select', 'date'],
+                'Check' => ['checklist']
+            ];
             $title = Yii::t('WhEditableField.editable', 'Enter');
             foreach ($titles as $t => $types) {
                 if (in_array($this->type, $types)) {
@@ -154,7 +155,7 @@ class WhEditableField extends WhEditable
             }
             $this->title = $title . ' ' . $staticModel->getAttributeLabel($this->attribute);
         } else {
-            $this->title = strtr($this->title, array('{label}' => $staticModel->getAttributeLabel($this->attribute)));
+            $this->title = strtr($this->title, ['{label}' => $staticModel->getAttributeLabel($this->attribute)]);
         }
 
         //scenario
@@ -167,9 +168,10 @@ class WhEditableField extends WhEditable
      * Returns selector
      * @return null|string
      */
+    #[\Override]
     public function getSelector()
     {
-        return str_replace('\\', '_', get_class($this->staticModel)) . '_' . parent::getSelector();
+        return str_replace('\\', '_', $this->staticModel::class) . '_' . parent::getSelector();
     }
 
 
@@ -201,7 +203,7 @@ class WhEditableField extends WhEditable
     public static function resolveModels($model, $attribute)
     {
         //attribute contains dot: related model, trying to resolve
-        $explode = explode('.', $attribute);
+        $explode = explode('.', (string) $attribute);
         $len = count($explode);
 
         $isMongo = self::isMongo($model);
@@ -246,11 +248,11 @@ class WhEditableField extends WhEditable
             $staticModel = $model;
         }
 
-        return array(
+        return [
             'model' => $model,
             'staticModel' => $staticModel,
             'attribute' => $attribute,
             'isMongo' => $isMongo
-        );
+        ];
     }
 }

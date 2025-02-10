@@ -21,77 +21,77 @@ class WhEditable extends CWidget
 {
 
     /**
-     * @var string type of editable widget. Can be `text`, `textarea`, `select`, `date`, `checklist`, etc.
+     * @var string|null type of editable widget. Can be `text`, `textarea`, `select`, `date`, `checklist`, etc.
      * @see x-editable
      */
     public $type = null;
 
     /**
-     * @var string url to submit value. Can be string or array containing Yii route, e.g. `array('site/updateUser')`
+     * @var string|null url to submit value. Can be string or array containing Yii route, e.g. `array('site/updateUser')`
      * @see x-editable
      */
     public $url = null;
 
     /**
-     * @var mixed primary key
+     * @var mixed|null primary key
      * @see x-editable
      */
     public $pk = null;
 
     /**
-     * @var string name of field
+     * @var string|null name of field
      * @see x-editable
      */
     public $name = null;
 
     /**
-     * @var array additional params to send on server
+     * @var array|null additional params to send on server
      * @see x-editable
      */
     public $params = null;
     /**
-     * @var string css class of input. If `null` - default X-editable value is used: `input-medium`
+     * @var string|null css class of input. If `null` - default X-editable value is used: `input-medium`
      * @see x-editable
      */
     public $inputclass = null;
 
     /**
-     * @var string mode of input: `inline` | `popup`. If not set - default X-editable value is used: `popup`.
+     * @var string|null mode of input: `inline` | `popup`. If not set - default X-editable value is used: `popup`.
      * @see x-editable
      */
     public $mode = null;
 
     /**
-     * @var string text to be shown as element content
+     * @var string|null text to be shown as element content
      */
     public $text = null;
 
     /**
-     * @var mixed initial value. If not set - will be taken from text
+     * @var mixed|null initial value. If not set - will be taken from text
      * @see x-editable
      */
     public $value = null;
 
     /**
-     * @var string placement of popup. Can be `left`, `top`, `right`, `bottom`. If `null` - default X-editable value is used: `top`
+     * @var string|null placement of popup. Can be `left`, `top`, `right`, `bottom`. If `null` - default X-editable value is used: `top`
      * @see x-editable
      */
     public $placement = null;
 
     /**
-     * @var string text shown on empty field. If `null` - default X-editable value is used: `Empty`
+     * @var string|null text shown on empty field. If `null` - default X-editable value is used: `Empty`
      * @see x-editable
      */
     public $emptytext = null;
 
     /**
-     * @var string visibility of buttons. Can be boolean `false|true` or string `bottom`.
+     * @var string|null visibility of buttons. Can be boolean `false|true` or string `bottom`.
      * @see x-editable
      */
     public $showbuttons = null;
 
     /**
-     * @var string Strategy for sending data on server. Can be `auto|always|never`.
+     * @var string|null Strategy for sending data on server. Can be `auto|always|never`.
      * When 'auto' data will be sent on server only if **pk** and **url** defined, otherwise new value will be stored locally.
      * @see x-editable
      */
@@ -107,7 +107,7 @@ class WhEditable extends CWidget
 
     //list
     /**
-     * @var mixed source data for **select**, **checklist**. Can be string (url) or array in format:
+     * @var mixed|null source data for **select**, **checklist**. Can be string (url) or array in format:
      * array( array("value" => 1, "text" => "abc"), ...)
      * @package list
      * @see x-editable
@@ -116,42 +116,42 @@ class WhEditable extends CWidget
 
     //date
     /**
-     * @var string format to send date on server. If `null` - default X-editable value is used: `yyyy-mm-dd`.
+     * @var string|null format to send date on server. If `null` - default X-editable value is used: `yyyy-mm-dd`.
      * @package date
      * @see x-editable
      */
     public $format = null;
 
     /**
-     * @var string format to display date in element. If `null` - equals to **format** option.
+     * @var string|null format to display date in element. If `null` - equals to **format** option.
      * @package date
      * @see x-editable
      */
     public $viewformat = null;
 
     /**
-     * @var string template for **combodate** input. For details see http://vitalets.github.com/x-editable/docs.html#combodate.
+     * @var string|null template for **combodate** input. For details see http://vitalets.github.com/x-editable/docs.html#combodate.
      * @package combodate
      * @see x-editable
      */
     public $template = null;
 
     /**
-     * @var array full config for **combodate** input. For details see http://vitalets.github.com/combodate/#docs
+     * @var array|null full config for **combodate** input. For details see http://vitalets.github.com/combodate/#docs
      * @package combodate
      * @see x-editable
      */
     public $combodate = null;
 
     /**
-     * @var string separator used to display tags.
+     * @var string|null separator used to display tags.
      * @package select2
      * @see x-editable
      */
     public $viewseparator = null;
 
     /**
-     * @var array full config for **select2** input. For details see http://ivaynberg.github.com/select2
+     * @var array|null full config for **select2** input. For details see http://ivaynberg.github.com/select2
      * @package select2
      * @see x-editable
      */
@@ -167,7 +167,7 @@ class WhEditable extends CWidget
      * }'
      * </pre>
      *
-     * @var string
+     * @var string|null
      * @package callback
      * @see x-editable
      * @example
@@ -183,7 +183,7 @@ class WhEditable extends CWidget
      * }'
      * </pre>
      *
-     * @var string
+     * @var string|null
      * @package callback
      * @see x-editable
      */
@@ -199,7 +199,7 @@ class WhEditable extends CWidget
      * }'
      * </pre>
      *
-     * @var string
+     * @var string|null
      * @package callback
      * @see x-editable
      */
@@ -209,7 +209,7 @@ class WhEditable extends CWidget
      * DOM id of target where afterAjaxUpdate handler will call
      * live update of editable element
      *
-     * @var string
+     * @var string|null
      */
     public $liveTarget = null;
     /**
@@ -217,7 +217,7 @@ class WhEditable extends CWidget
      * Usefull in combination of `liveTarget` when you want to keep field(s) editble
      * after ajaxUpdate
      *
-     * @var string
+     * @var string|null
      */
     public $liveSelector = null;
 
@@ -279,13 +279,13 @@ class WhEditable extends CWidget
     /**
      * @var array all config options of x-editable. See full list <a href="http://vitalets.github.com/x-editable/docs.html#editable">here</a>.
      */
-    public $options = array();
+    public $options = [];
 
     /**
      * @var array HTML options of element. In `EditableColumn` htmlOptions are PHP expressions
      * so you can use `$data` to bind values to particular cell, e.g. `'data-categoryID' => '$data->categoryID'`.
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * @var boolean whether to HTML encode text on output
@@ -293,13 +293,13 @@ class WhEditable extends CWidget
     public $encode = true;
 
     /**
-     * @var boolean whether to apply 'editable' js plugin to element.
+     * @var boolean|null whether to apply 'editable' js plugin to element.
      * Only **safe** attributes become editable.
      */
     public $apply = null;
 
     /**
-     * @var string title of popup. If `null` - will be generated automatically from attribute label.
+     * @var string|null title of popup. If `null` - will be generated automatically from attribute label.
      * Can have token {label} inside that will be replaced with actual attribute label.
      */
     public $title = null;
@@ -324,7 +324,7 @@ class WhEditable extends CWidget
             throw new CException('Parameter "name" should be provided for Editable widget');
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
         $this->_prepareToAutotext = self::isAutotext($this->options, $this->type);
     }
 
@@ -334,10 +334,10 @@ class WhEditable extends CWidget
     public function buildHtmlOptions()
     {
         //html options
-        $htmlOptions = array(
+        $htmlOptions = [
             'href' => '#',
-            'rel' => $this->liveSelector ? $this->liveSelector : $this->getSelector(),
-        );
+            'rel' => $this->liveSelector ?: $this->getSelector(),
+        ];
 
         //set data-pk
         if ($this->pk !== null) {
@@ -350,7 +350,7 @@ class WhEditable extends CWidget
             //for date we use 'format' to put it into value (if text not defined)
             if ($this->type == 'date') {
                 //if date comes as object, format it to string
-                if ($this->value instanceOf DateTime || is_long($this->value)) {
+                if ($this->value instanceOf DateTime || is_int($this->value)) {
                     /*
                     * unfortunatly datepicker's format does not match Yii locale dateFormat,
                     * we need replacements below to convert date correctly
@@ -394,10 +394,10 @@ class WhEditable extends CWidget
         //normalize url from array
         $this->url = CHtml::normalizeUrl($this->url);
 
-        $options = array(
+        $options = [
             'name' => $this->name,
             'title' => CHtml::encode($this->title),
-        );
+        ];
 
         //if value needed for autotext and it's not scalar --> add it to js options
         if ($this->_prepareToAutotext && !is_scalar($this->value)) {
@@ -414,7 +414,7 @@ class WhEditable extends CWidget
         }
 
         //simple options set directly from config
-        foreach (array(
+        foreach ([
                      'url',
                      'type',
                      'mode',
@@ -430,7 +430,7 @@ class WhEditable extends CWidget
                      'viewseparator',
                      'showbuttons',
                      'send',
-                 ) as $option) {
+                 ] as $option) {
             if ($this->$option !== null) {
                 $options[$option] = $this->$option;
             }
@@ -445,9 +445,9 @@ class WhEditable extends CWidget
                 if (isset($this->source[0]) && is_array($this->source[0])) {
                     $options['source'] = $this->source;
                 } else { //else convert to x-editable source format {value: 1, text: 'abc'}
-                    $options['source'] = array();
+                    $options['source'] = [];
                     foreach ($this->source as $value => $text) {
-                        $options['source'][] = array('value' => $value, 'text' => $text);
+                        $options['source'][] = ['value' => $value, 'text' => $text];
                     }
                 }
             } else { //source is url string (or js function)
@@ -456,9 +456,9 @@ class WhEditable extends CWidget
         }
 
         //callbacks
-        foreach (array('validate', 'success', 'display') as $method) {
+        foreach (['validate', 'success', 'display'] as $method) {
             if (isset($this->$method)) {
-                $options[$method] = (strpos($this->$method, 'js:') !== 0 ? 'js:' : '') . $this->$method;
+                $options[$method] = (!str_starts_with($this->$method, 'js:') ? 'js:' : '') . $this->$method;
             }
         }
 
@@ -486,12 +486,12 @@ class WhEditable extends CWidget
         $script = "$('" . $selector . "')";
 
         //attach events
-        foreach (array('init', 'shown', 'save', 'hidden') as $event) {
+        foreach (['init', 'shown', 'save', 'hidden'] as $event) {
             $eventName = 'on' . ucfirst($event);
             if (isset($this->$eventName)) {
                 // CJavaScriptExpression appeared only in 1.1.11, will turn to it later
                 //$event = ($this->onInit instanceof CJavaScriptExpression) ? $this->onInit : new CJavaScriptExpression($this->onInit);
-                $eventJs = (strpos($this->$eventName, 'js:') !== 0 ? 'js:' : '') . $this->$eventName;
+                $eventJs = (!str_starts_with($this->$eventName, 'js:') ? 'js:' : '') . $this->$eventName;
                 $script .= "\n.on('" . $event . "', " . CJavaScript::encode($eventJs) . ")";
             }
         }
@@ -506,7 +506,7 @@ class WhEditable extends CWidget
             $script = "(function yiiEditable() {\n " . $script . "\n}());";
         }
 
-        Yii::app()->getClientScript()->registerScript(__CLASS__ . '-' . $selector, $script);
+        Yii::app()->getClientScript()->registerScript(self::class . '-' . $selector, $script);
 
         return $script;
     }
@@ -588,7 +588,7 @@ class WhEditable extends CWidget
     {
         $encodedText = $this->encode ? CHtml::encode($this->text) : $this->text;
         if ($this->type == 'textarea') {
-            $encodedText = preg_replace('/\r?\n/', '<br>', $encodedText);
+            $encodedText = preg_replace('/\r?\n/', '<br>', (string) $encodedText);
         }
         echo $encodedText;
     }
@@ -612,11 +612,11 @@ class WhEditable extends CWidget
             if (is_array($pk)) {
                 //below not works in PHP < 5.3, see https://github.com/vitalets/x-editable-yii/issues/39
                 //$pk = join('_', array_map(function($k, $v) { return $k.'-'.$v; }, array_keys($pk), $pk));
-                $buffer = array();
+                $buffer = [];
                 foreach ($pk as $k => $v) {
                     $buffer[] = $k . '-' . $v;
                 }
-                $pk = join('_', $buffer);
+                $pk = implode('_', $buffer);
             }
         }
 
@@ -638,7 +638,7 @@ class WhEditable extends CWidget
         return (!isset($options['autotext']) || $options['autotext'] !== 'never')
         && in_array(
             $type,
-            array(
+            [
                 'select',
                 'checklist',
                 'date',
@@ -646,7 +646,7 @@ class WhEditable extends CWidget
                 'dateui',
                 'combodate',
                 'select2'
-            )
+            ]
         );
     }
 
@@ -666,14 +666,14 @@ class WhEditable extends CWidget
      */
     public static function source($models, $valueField = '', $textField = '', $groupField = '', $groupTextField = '')
     {
-        $listData = array();
+        $listData = [];
 
         $first = reset($models);
 
         //simple 1-dimensional array: 0 => 'text 0', 1 => 'text 1'
         if ($first && (is_string($first) || is_numeric($first))) {
             foreach ($models as $key => $text) {
-                $listData[] = array('value' => $key, 'text' => $text);
+                $listData[] = ['value' => $key, 'text' => $text];
             }
             return $listData;
         }
@@ -683,31 +683,31 @@ class WhEditable extends CWidget
             foreach ($models as $model) {
                 $value = CHtml::value($model, $valueField);
                 $text = CHtml::value($model, $textField);
-                $listData[] = array('value' => $value, 'text' => $text);
+                $listData[] = ['value' => $value, 'text' => $text];
             }
         } else {
             if (!$groupTextField) {
                 $groupTextField = $groupField;
             }
-            $groups = array();
+            $groups = [];
             foreach ($models as $model) {
                 $group = CHtml::value($model, $groupField);
                 $groupText = CHtml::value($model, $groupTextField);
                 $value = CHtml::value($model, $valueField);
                 $text = CHtml::value($model, $textField);
                 if ($group === null) {
-                    $listData[] = array('value' => $value, 'text' => $text);
+                    $listData[] = ['value' => $value, 'text' => $text];
                 } else {
                     if (!isset($groups[$group])) {
-                        $groups[$group] = array(
+                        $groups[$group] = [
                             'value' => $group,
                             'text' => $groupText,
-                            'children' => array(),
+                            'children' => [],
                             'index' => count($listData)
-                        );
+                        ];
                         $listData[] = 'group'; //placeholder, will be replaced in future
                     }
-                    $groups[$group]['children'][] = array('value' => $value, 'text' => $text);
+                    $groups[$group]['children'][] = ['value' => $value, 'text' => $text];
                 }
             }
 
@@ -732,12 +732,12 @@ class WhEditable extends CWidget
         $trigger = '$("#' . $widget->id . '").trigger("ajaxUpdate.editable");';
 
         //check if trigger already inserted by another column
-        if (strpos($widget->afterAjaxUpdate, $trigger) !== false) return;
+        if (str_contains((string) $widget->afterAjaxUpdate, $trigger)) return;
 
         //inserting trigger
-        if (strlen($widget->afterAjaxUpdate)) {
+        if (strlen((string) $widget->afterAjaxUpdate)) {
             $orig = $widget->afterAjaxUpdate;
-            if (strpos($orig, 'js:') === 0) $orig = substr($orig, 3);
+            if (str_starts_with((string) $orig, 'js:')) $orig = substr((string) $orig, 3);
             $orig = "\n($orig).apply(this, arguments);";
         } else {
             $orig = '';

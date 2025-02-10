@@ -22,7 +22,7 @@ class WhImageColumn extends CGridColumn
     /**
      * @var array the HTML options of the image tag
      */
-    public $imageOptions = array();
+    public $imageOptions = [];
 
     /**
      * @var string $imagePathExpression is evaluated in every data cell and
@@ -74,7 +74,7 @@ class WhImageColumn extends CGridColumn
         $content = $this->emptyText;
         if ($this->imagePathExpression && $imagePath = $this->evaluateExpression(
                 $this->imagePathExpression,
-                array('row' => $row, 'data' => $data)
+                ['row' => $row, 'data' => $data]
             )
         ) {
             $this->imageOptions['src'] = $imagePath;
@@ -82,10 +82,10 @@ class WhImageColumn extends CGridColumn
         } elseif ($this->usePlaceHoldIt && !empty($this->placeHoldItSize)) {
             $content = CHtml::tag(
                 'img',
-                array('src' => 'http://placehold.it/' . $this->placeHoldItSize)
+                ['src' => 'http://placehold.it/' . $this->placeHoldItSize]
             );
         } elseif ($this->usePlaceKitten && !empty($this->placeKittenSize)) {
-            $content = CHtml::tag('img', array('src' => 'http://placekitten.com/' . $this->placeKittenSize));
+            $content = CHtml::tag('img', ['src' => 'http://placekitten.com/' . $this->placeKittenSize]);
         }
         echo $content;
     }

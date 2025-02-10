@@ -46,11 +46,11 @@ abstract class WhOperation extends CWidget
             throw new CException(Yii::t(
                 'zii',
                 '"{attribute}" attribute must be defined',
-                array('{attribute}' => 'column')
+                ['{attribute}' => 'column']
             ));
         }
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**

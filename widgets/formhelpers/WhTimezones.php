@@ -22,7 +22,7 @@ class WhTimezones extends CInputWidget
      * - country
      * @see http://vincentlamanna.com/BootstrapFormHelpers/timezone.html
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var bool whether to use bootstrap helper select Box widget
@@ -32,7 +32,7 @@ class WhTimezones extends CInputWidget
     /**
      * @var array extra config options for helper select box
      */
-    public $helperOptions = array();
+    public $helperOptions = [];
 
 
     /**
@@ -42,7 +42,7 @@ class WhTimezones extends CInputWidget
     public function init()
     {
 
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
 
         TbHtml::addCssClass('bfh-timezones', $this->htmlOptions);
     }
@@ -61,7 +61,7 @@ class WhTimezones extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -70,21 +70,19 @@ class WhTimezones extends CInputWidget
             $select = Yii::createComponent(
                 CMap::mergeArray(
                     $this->helperOptions,
-                    array(
+                    [
                         'class' => 'yiiwheels.widgets.formhelpers.WhSelectBox',
                         'htmlOptions' => $this->htmlOptions,
                         'model' => $this->model,
                         'attribute' => $this->attribute,
                         'name' => $this->name,
                         'value' => $this->value,
-                        'wrapperOptions' => array(
+                        'wrapperOptions' => [
                             'class' => 'bfh-timezones',
                             'data-country' => $this->hasModel() ? $this->model->{$this->attribute} : $this->value,
-                            'data-timezone' => isset($this->pluginOptions['timezone'])
-                                    ? $this->pluginOptions['timezone']
-                                    : null
-                        )
-                    )
+                            'data-timezone' => $this->pluginOptions['timezone'] ?? null
+                        ]
+                    ]
                 )
             );
             $select->init();
@@ -93,13 +91,11 @@ class WhTimezones extends CInputWidget
             $this->htmlOptions['data-country'] = $this->hasModel()
                 ? $this->model->{$this->attribute}
                 : $this->value;
-            $this->htmlOptions['data-timezone'] = isset($this->pluginOptions['timezone'])
-                ? $this->pluginOptions['timezone']
-                : null;
+            $this->htmlOptions['data-timezone'] = $this->pluginOptions['timezone'] ?? null;
             if ($this->hasModel()) {
-                echo CHtml::activeDropDownList($this->model, $this->attribute, array(), $this->htmlOptions);
+                echo CHtml::activeDropDownList($this->model, $this->attribute, [], $this->htmlOptions);
             } else {
-                echo CHtml::dropDownList($name, $this->value, array(), $this->htmlOptions);
+                echo CHtml::dropDownList($name, $this->value, [], $this->htmlOptions);
             }
         }
     }
@@ -110,7 +106,7 @@ class WhTimezones extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

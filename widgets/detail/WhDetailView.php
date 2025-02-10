@@ -21,7 +21,7 @@ class WhDetailView extends CDetailView
      * @var string|array the table type.
      * Valid values are TbHtml::GRID_STRIPED, TbHtml::GRID_BORDERED and/or TbHtml::GRID_CONDENSED.
      */
-    public $type = array(TbHtml::GRID_TYPE_STRIPED, TbHtml::GRID_TYPE_CONDENSED);
+    public $type = [TbHtml::GRID_TYPE_STRIPED, TbHtml::GRID_TYPE_CONDENSED];
 
     /**
      * @var string the URL of the CSS file used by this detail view.
@@ -36,19 +36,19 @@ class WhDetailView extends CDetailView
     {
         parent::init();
 
-        $classes = array('table');
+        $classes = ['table'];
 
         if (isset($this->type) && !empty($this->type)) {
             if (is_string($this->type)) {
                 $this->type = explode(' ', $this->type);
             }
 
-            $validTypes = array(
+            $validTypes = [
                 TbHtml::GRID_TYPE_BORDERED,
                 TbHtml::GRID_TYPE_CONDENSED,
                 TbHtml::GRID_TYPE_STRIPED,
                 TbHtml::GRID_TYPE_HOVER
-            );
+            ];
 
             foreach ($this->type as $type) {
                 if (in_array($type, $validTypes)) {

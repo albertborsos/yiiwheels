@@ -40,24 +40,24 @@ class WhTimePicker extends CInputWidget
      *          display a keyboard on input focus.
      * modalBackdrop    boolean    false    Show modal backdrop.
      */
-    public $pluginOptions = array();
+    public $pluginOptions = [];
 
     /**
      * @var string[] the JavaScript event handlers.
      */
-    public $events = array();
+    public $events = [];
 
     /**
      * @var array the HTML attributes for the widget container.
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * Initializes the widget.
      */
     public function init()
     {
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
     }
 
     /**
@@ -76,7 +76,7 @@ class WhTimePicker extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         TbArray::defaultValue('id', $id, $this->htmlOptions);
         TbArray::defaultValue('name', $name, $this->htmlOptions);
@@ -85,7 +85,7 @@ class WhTimePicker extends CInputWidget
         if ($this->hasModel()) {
             echo CHtml::activeTextField($this->model, $this->attribute, $this->htmlOptions);
         } else {
-            echo CHtml::textField($name, $this->value, $this->htmlOptions, array('style' => 'width:100%'));
+            echo CHtml::textField($name, $this->value, $this->htmlOptions);
         }
         echo '</span>';
     }
@@ -98,7 +98,7 @@ class WhTimePicker extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
 
         /* @var $cs CClientScript */

@@ -5,7 +5,7 @@
  * @author Manuel (https://github.com/manuel-84)
 */
 
-return array (
+return  [
      'Enter' => 'Inserisci',
      'Select' => 'Seleziona',
-);
+];

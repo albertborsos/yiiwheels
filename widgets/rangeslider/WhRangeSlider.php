@@ -235,18 +235,18 @@ class WhRangeSlider extends CInputWidget
     public function init()
     {
 
-        $this->checkOptionAttribute($this->type, array('range', 'editRange', 'dateRange'), 'type');
+        $this->checkOptionAttribute($this->type, ['range', 'editRange', 'dateRange'], 'type');
 
-        $this->checkOptionAttribute($this->inputType, array('text', 'number'), 'inputType');
+        $this->checkOptionAttribute($this->inputType, ['text', 'number'], 'inputType');
 
-        $this->checkOptionAttribute($this->valueLabels, array('show', 'hide', 'change'), 'valueLabels');
+        $this->checkOptionAttribute($this->valueLabels, ['show', 'hide', 'change'], 'valueLabels');
 
-        $this->checkOptionAttribute($this->theme, array('iThing', 'classic'), 'theme');
+        $this->checkOptionAttribute($this->theme, ['iThing', 'classic'], 'theme');
 
         if ($this->wheelMode) {
-            $this->checkOptionAttribute($this->wheelMode, array('zoom', 'scroll'), 'wheelMode');
+            $this->checkOptionAttribute($this->wheelMode, ['zoom', 'scroll'], 'wheelMode');
         }
-        $this->attachBehavior('ywplugin', array('class' => 'yiiwheels.behaviors.WhPlugin'));
+        $this->attachBehavior('ywplugin', ['class' => 'yiiwheels.behaviors.WhPlugin']);
         $this->buildOptions();
     }
 
@@ -264,7 +264,7 @@ class WhRangeSlider extends CInputWidget
      */
     public function renderField()
     {
-        list($name, $id) = $this->resolveNameID();
+        [$name, $id] = $this->resolveNameID();
 
         if ($this->hasModel()) {
             echo CHtml::activeHiddenField($this->model, $this->attribute, $this->htmlOptions);
@@ -281,7 +281,7 @@ class WhRangeSlider extends CInputWidget
     public function registerClientScript()
     {
         /* publish assets dir */
-        $path = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'assets';
+        $path = __DIR__ . DIRECTORY_SEPARATOR . 'assets';
         $assetsUrl = $this->getAssetsUrl($path);
         $id = TbArray::getValue('id', $this->htmlOptions, $this->getId());
 
@@ -306,7 +306,7 @@ class WhRangeSlider extends CInputWidget
         //inserting trigger
         if (isset($this->events['valuesChanged'])) {
             $orig = $this->events['valuesChanged'];
-            if (strpos($orig, 'js:') === 0) {
+            if (str_starts_with($orig, 'js:')) {
                 $orig = substr($orig, 3);
             }
             $orig = "\n($orig).apply(this, arguments);";
@@ -323,7 +323,7 @@ class WhRangeSlider extends CInputWidget
             echo ".on('{$event}', " . CJavaScript::encode($handler) . ")";
         }
 
-        $cs->registerScript(__CLASS__ . '#' . $this->getId(), ob_get_clean() . ';');
+        $cs->registerScript(self::class . '#' . $this->getId(), ob_get_clean() . ';');
     }
 
     /**
@@ -331,7 +331,7 @@ class WhRangeSlider extends CInputWidget
      */
     protected function buildOptions()
     {
-        $options = array(
+        $options = [
             'arrows' => $this->arrows,
             'delayOut' => $this->delayOut,
             'durationIn' => $this->durationIn,
@@ -342,30 +342,30 @@ class WhRangeSlider extends CInputWidget
             'wheelMode' => $this->wheelMode,
             'wheelSpeed' => $this->wheelSpeed,
             'type' => ($this->type == 'dateRange' ? null : $this->inputType)
-        );
+        ];
         $this->options = array_filter($options);
 
         if ($this->minRange && $this->maxRange && $this->minRange < $this->maxRange) {
             $this->options = CMap::mergeArray(
                 $this->options,
-                array('range' => array('min' => $this->minRange, 'max' => $this->maxRange))
+                ['range' => ['min' => $this->minRange, 'max' => $this->maxRange]]
             );
         }
         if ($this->minValue && $this->maxValue && $this->minValue < $this->maxValue) {
             $this->options = CMap::mergeArray(
                 $this->options,
-                array('bounds' => array('min' => $this->minValue, 'max' => $this->maxValue))
+                ['bounds' => ['min' => $this->minValue, 'max' => $this->maxValue]]
             );
         }
         if ($this->minDefaultValue && $this->maxDefaultValue && $this->minDefaultValue < $this->maxDefaultValue) {
             $this->options = CMap::mergeArray(
                 $this->options,
-                array(
-                    'defaultValues' => array(
+                [
+                    'defaultValues' => [
                         'min' => $this->minDefaultValue,
                         'max' => $this->maxDefaultValue
-                    )
-                )
+                    ]
+                ]
             );
         }
     }
@@ -385,7 +385,7 @@ class WhRangeSlider extends CInputWidget
             throw new CException(Yii::t(
                 'zii',
                 'Unsupported "{attribute}" setting.',
-                array('{attribute}' => $name)
+                ['{attribute}' => $name]
             ));
         }
     }

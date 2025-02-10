@@ -29,17 +29,17 @@ class WhToggleColumn extends TbDataColumn
     /**
      * @var array the HTML options for the data cell tags.
      */
-    public $htmlOptions = array('class' => 'toggle-column');
+    public $htmlOptions = ['class' => 'toggle-column'];
 
     /**
      * @var array the HTML options for the header cell tag.
      */
-    public $headerHtmlOptions = array('class' => 'toggle-column');
+    public $headerHtmlOptions = ['class' => 'toggle-column'];
 
     /**
      * @var array the HTML options for the footer cell tag.
      */
-    public $footerHtmlOptions = array('class' => 'toggle-column');
+    public $footerHtmlOptions = ['class' => 'toggle-column'];
 
     /**
      * @var string the label for the toggle button. Defaults to "Check".
@@ -135,7 +135,7 @@ class WhToggleColumn extends TbDataColumn
     /**
      * @var array the configuration for toggle button.
      */
-    protected $toggleOptions = array();
+    protected $toggleOptions = [];
 
     /**
      * Initializes the column.
@@ -147,7 +147,7 @@ class WhToggleColumn extends TbDataColumn
             throw new CException(Yii::t(
                 'zii',
                 '"{attribute}" attribute cannot be empty.',
-                array('{attribute}' => "name")
+                ['{attribute}' => "name"]
             ));
         }
 
@@ -170,10 +170,10 @@ class WhToggleColumn extends TbDataColumn
             $this->emptyButtonLabel = Yii::t('zii', 'Not set');
         }
 
-        $this->toggleOptions = array(
+        $this->toggleOptions = [
             'url' => 'Yii::app()->controller->createUrl("' . $this->toggleAction . '",array("id"=>$data->primaryKey,"attribute"=>"' . $this->name . '"))',
-            'htmlOptions' => array('class' => $this->name . '_toggle' . $this->uniqueClassSuffix),
-        );
+            'htmlOptions' => ['class' => $this->name . '_toggle' . $this->uniqueClassSuffix],
+        ];
 
         if (Yii::app()->request->enableCsrfValidation) {
             $csrfTokenName = Yii::app()->request->csrfTokenName;
@@ -224,11 +224,11 @@ function() {
                 : $this->uncheckedIcon);
 
         $toggleOptions['url'] = isset($toggleOptions['url'])
-            ? $this->evaluateExpression($toggleOptions['url'], array('data' => $data, 'row' => $row))
+            ? $this->evaluateExpression($toggleOptions['url'], ['data' => $data, 'row' => $row])
             : '#';
 
         if (!$this->displayText) {
-            $htmlOptions = TbArray::getValue('htmlOptions', $this->toggleOptions, array());
+            $htmlOptions = TbArray::getValue('htmlOptions', $this->toggleOptions, []);
             $htmlOptions['title'] = $this->getButtonLabel($checked);
             $htmlOptions['rel'] = 'tooltip';
             echo CHtml::link(TbHtml::icon($toggleOptions['icon']), $toggleOptions['url'], $htmlOptions);
@@ -242,11 +242,11 @@ function() {
      */
     protected function registerClientScript()
     {
-        $js = array();
+        $js = [];
 
         $function = CJavaScript::encode(TbArray::popValue('click', $this->toggleOptions, ''));
 
-        $class = preg_replace('/\s+/', '.', $this->toggleOptions['htmlOptions']['class']);
+        $class = preg_replace('/\s+/', '.', (string) $this->toggleOptions['htmlOptions']['class']);
         $js[] = "$(document).off('click').on('click','#{$this->grid->id} a.{$class}',$function);";
 
         Yii::app()->getClientScript()->registerScript($this->name . '#ReadyJS', implode("\n", $js));

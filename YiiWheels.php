@@ -16,17 +16,17 @@ class YiiWheels extends CApplicationComponent
     /**
      * @var array the HTML options for the view container tag.
      */
-    public $htmlOptions = array();
+    public $htmlOptions = [];
 
     /**
      * @var array $assetsJs of javascript library names to be registered when initializing the library.
      */
-    public $assetsJs = array();
+    public $assetsJs = [];
 
     /**
      * @var array $assetsCss of style library names to be registered when initializing the library.
      */
-    public $assetsCss = array();
+    public $assetsCss = [];
 
     /**
      * @var TbApi $_api
