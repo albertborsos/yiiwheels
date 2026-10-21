@@ -730,14 +730,15 @@ class WhEditable extends CWidget
     public static function attachAjaxUpdateEvent($widget)
     {
         $trigger = '$("#' . $widget->id . '").trigger("ajaxUpdate.editable");';
+        $afterAjaxUpdate = (string) ($widget->afterAjaxUpdate ?? '');
 
         //check if trigger already inserted by another column
-        if (str_contains((string) $widget->afterAjaxUpdate, $trigger)) return;
+        if (str_contains($afterAjaxUpdate, $trigger)) return;
 
         //inserting trigger
-        if (strlen((string) $widget->afterAjaxUpdate)) {
-            $orig = $widget->afterAjaxUpdate;
-            if (str_starts_with((string) $orig, 'js:')) $orig = substr((string) $orig, 3);
+        if (strlen($afterAjaxUpdate)) {
+            $orig = $afterAjaxUpdate;
+            if (str_starts_with($orig, 'js:')) $orig = substr($orig, 3);
             $orig = "\n($orig).apply(this, arguments);";
         } else {
             $orig = '';

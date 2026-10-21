@@ -60,7 +60,7 @@ class WhSumOperation extends WhOperation
             $this->template,
             [
                 '{label}' => $this->label,
-                '{value}' => $this->total === null ? '' : Yii::app()->format->format($this->total, $this->column->type)
+                '{value}' => $this->total === null ? '' : Yii::app()->format->formatNumber($this->total)
             ]
         );
     }
